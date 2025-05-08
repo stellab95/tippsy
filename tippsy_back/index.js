@@ -16,14 +16,14 @@ app.use(
      origin: 'http://localhost:5173',
      methods: ["GET", "POST", "PUT", "DELETE"],
      }
- )); // ce middleware autorise les requêtes provenant d'un domaine différent
+ )); 
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Sert les fichiers statiques depuis "public"
-app.use(express.static(path.join(__dirname, 'public'))); // tous les fichiers qui sont dans le dossier public/ sont accessibles publiquement.
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(myRouter);
 app.use('/uploads', express.static('uploads')) 
 
