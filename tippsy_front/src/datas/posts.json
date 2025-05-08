@@ -1,0 +1,32 @@
+{
+  "posts":[
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent  eleifend mauris ut sem volutpat euismod. Praesent lacinia quam erat,  vitae tempor massa accumsan in. Etiam id tristique ligula, eget auctor  tortor. Meque placerat, ex est aliquam  tellus, sit amet laoreet enim enim vitae neque.",
+      "image": "🫣"
+    },
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent  eleifend mauris ut sem volutpat euismod. Praesent lacinia quam erat,  vitae tempor massa accumsan in. Etiam id tristique ligula, eget auctor  tortor. Meque placerat, ex est aliquam  tellus, sit amet laoreet enim enim vitae neque.",
+      "image": "🥲"
+    },
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent  eleifend mauris ut sem volutpat euismod. Praesent lacinia quam erat,  vitae tempor massa accumsan in. Etiam id tristique ligula, eget auctor  tortor. Meque placerat, ex est aliquam  tellus, sit amet laoreet enim enim vitae neque.",
+      "image": "😉"
+    },
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent  eleifend mauris ut sem volutpat euismod. Praesent lacinia quam erat,  vitae tempor massa accumsan in. Etiam id tristique ligula, eget auctor  tortor. Meque placerat, ex est aliquam  tellus, sit amet laoreet enim enim vitae neque.",
+      "image": "😚"
+    },
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent  eleifend mauris ut sem volutpat euismod. Praesent lacinia quam erat,  vitae tempor massa accumsan in. Etiam id tristique ligula, eget auctor  tortor. Meque placerat, ex est aliquam  tellus, sit amet laoreet enim enim vitae neque.",
+      "image": "🤩"
+    },
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent  eleifend mauris ut sem volutpat euismod. Praesent lacinia quam erat,  vitae tempor massa accumsan in. Etiam id tristique ligula, eget auctor  tortor. Meque placerat, ex est aliquam  tellus, sit amet laoreet enim enim vitae neque.",
+      "image": "🧐"
+    },
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent  eleifend mauris ut sem volutpat euismod. Praesent lacinia quam erat,  vitae tempor massa accumsan in. Etiam id tristique ligula, eget auctor  tortor. Meque placerat, ex est aliquam  tellus, sit amet laoreet enim enim vitae neque.",
+      "image": "😎"
+    }
+  ]
+}

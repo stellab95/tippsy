@@ -1,0 +1,9 @@
+.main-container{
+    display: flex;
+}
+.cards-container{
+    flex: 1;
+    display: flex;
+    padding: 2rem;
+    justify-content: center;
+}

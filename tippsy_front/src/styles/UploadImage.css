@@ -1,0 +1,39 @@
+.all-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.upload-image{
+    gap: 0.5rem;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    color: black;
+    cursor: pointer;
+    font-weight: 600;
+    align-items: center;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    border: solid 1px #d7d7d7;
+}
+.preview-container{
+    display: flex;
+    align-content: center;
+}
+.preview{
+    width: 530px;
+    margin-bottom: 1rem;
+}
+/* .image-button{
+    display: flex;
+    align-items: center;
+    align-content: center;
+} */
+.image-icon, .camera-icon, .microphone-icon, .link-icon{
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+
+}

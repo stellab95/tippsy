@@ -1,0 +1,21 @@
+
+.main-container{
+    display: flex;
+    height: 100vh;
+    margin-left: 280px;
+}
+.create-post-container{
+    margin-left: 280px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+/* .form-wrapper {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        justify-content: center;
+} */
+      

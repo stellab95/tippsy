@@ -1,0 +1,65 @@
+.post-card-container{
+    width: 530px;
+    height: auto;
+    padding: 10px;
+    margin: 0 auto;
+    color: black;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: white;
+}
+.img-card-container{
+    width: 525px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.user-profil{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.userProfil-title-container{
+display: flex;
+margin-top: 15px;
+}
+.card-title{
+    margin: 0;
+}
+.date{
+    margin: 0;
+    font-size: 14px;
+}
+.title-date-container{
+    display: flex;
+    flex-direction: column;
+}
+.text-post{
+    width: 520px;
+    font-size: 14px;
+    text-align: justify;
+}
+.text-container{
+    margin-bottom: 50px;
+}
+.interactivity{
+    display: flex;
+    margin-bottom: 20px;
+}
+.heart-container, .comment-container{
+    display: flex;
+}
+.heart-icon, .comment-icon{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+}
+.nb-likes, .nb-comments{
+    font-size: 14px;
+    margin: 0 15px 0 0;
+}

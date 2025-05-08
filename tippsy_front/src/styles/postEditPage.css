@@ -1,0 +1,11 @@
+.main-container{
+    display: flex;
+    height: 100vh;
+    margin-left: 280px;
+}
+.posts-edit-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
