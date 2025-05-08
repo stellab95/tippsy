@@ -6,6 +6,7 @@ import PostEdit from './components/PostEdit';
 import CreatePostPage from './components/createPostePage/CreatePostPage';
 import PostEditPage from './components/postEditPage/PostEditPage';
 import Login from './components/Login';
+import Register from './components/Register';
 
 const router = createBrowserRouter([
   {
@@ -25,8 +26,12 @@ const router = createBrowserRouter([
     element: <CreatePostPage />
   },
   {
-  path: '/login',
-  element: <Login />
+  path: '/register',
+  element: <Register />
+},
+{
+path: '/login',
+element: <Login />
 }
 
 

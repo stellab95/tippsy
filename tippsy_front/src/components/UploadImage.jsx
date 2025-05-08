@@ -21,7 +21,7 @@ function UploadImage({ setImage }) {
 
         setPreview(URL.createObjectURL(file))
 
-        const formData = new FormData
+        const formData = new FormData()
         formData.append('image', file)
 
         try {
