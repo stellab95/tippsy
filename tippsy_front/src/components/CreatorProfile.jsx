@@ -16,7 +16,7 @@ function CreatorProfile(){
 
                 <div className='profile-buttons'>
                     <div className='right-buttons'>
-                        <button type="button" onClick={() => navigate('/createpostpage')}>
+                        <button type="button" onClick={() => navigate('/createpost')}>
                             <img src={createIcon} className="create-icon" />Créer</button>
                     </div>
                 </div>

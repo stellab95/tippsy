@@ -1,0 +1,8 @@
+.trash-icon{
+    all: unset;
+}
+.trash-img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}

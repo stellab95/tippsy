@@ -31,8 +31,7 @@ function CreatePost(){
 
             if (response.ok){
                 console.log("Post crée avec succès !");
-                navigate('/')
-                
+                navigate('/creatorprofile')
             }
             const data = await response.json()
             console.log(('Post ajouté', data));

@@ -6,6 +6,7 @@ import CreatePostPage from './components/createPostPage/CreatePostPage';
 import PostEditPage from './components/postEditPage/PostEditPage';
 import Login from './components/Login';
 import Register from './components/Register';
+import DeletePost from './components/deletePost';
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,11 @@ const router = createBrowserRouter([
   {
   path: '/creatorprofile',
   element: <CreatorProfilePage />
-  }
-  
+  },
+  {
+    path: '/posts/:id/delete',
+    element: <DeletePost />
+  }   
 
 ])
 

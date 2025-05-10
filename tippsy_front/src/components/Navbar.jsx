@@ -42,7 +42,7 @@ function Navbar(){
             <div className='user-status'>
                 <a href="#"><img src={userNavbarPicture} alt='user-navbar-picture' className="user-navbar-picture" /></a>
                 <div>
-                    <p className='username'>username</p>
+                    <p className='nav-username'>username</p>
                     <p className='status'>status</p>
                 </div>
             </div>

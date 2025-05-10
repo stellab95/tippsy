@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import registerPicture from '../assets/img/create-icon.svg'
+import registerPicture from '../assets/img/artistic-girl.jpeg'
 
-import '../styles/Login.css'
+import '../styles/Register.css'
 
 function Register(){
     const navigate = useNavigate()
@@ -40,13 +40,29 @@ function Register(){
     }
 
     return (
-        <div className="form-wrapper">
-            <form className="login-container" onSubmit={handleSubmit} encType="multipart/form-data">
-                <input className="username" type="text" placeholder="Nom ou pseudo" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                <input className="password" type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <button className="login-button" type="submit">S'inscrire</button>
-            </form>
+        <div className="register-main-container">
+            <img src={registerPicture} className="register-picture" />
+            <div className="register-form-wrapper">
+                <p className="logo-connexion">tippsy</p>
+                <p className="slogan">Tip. Support. Repeat.</p>
+                <p className="intro">Le meilleur endroit pour pour créer une communauté avec vos plus grands fans, partager des oeuvres exclusives et transformer votre passion en une entreprise durable.</p>
+             <form className="register-container" onSubmit={handleSubmit} encType="multipart/form-data">
+                   <div>
+                        {/* <div className="role-buttons">
+                            <button>Je deviens membre</button>
+                            <button>Je suis un artiste</button>
+                        </div> */}
+                        <input className="username" type="text" placeholder="Nom ou pseudo" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                        <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input className="password" type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                    
+                    <div className="register-button-container">
+                        <button className="register-button" type="submit">S'inscrire</button>
+                    </div>
+                </form>
+                <p className="login-link">J'ai déjà un compte, <a onClick={() => navigate('/login')}>connexion</a></p>
+            </div>
         </div>
     )   
 }

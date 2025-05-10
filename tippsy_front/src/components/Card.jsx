@@ -6,20 +6,28 @@ import heartIcon from '../assets/icons/heart-icon.svg'
 import commentIcon from '../assets/icons/comment-icon.svg'
 
 import '../styles/Card.css'
+import DeletePost from './deletePost';
 
-function Card( {post} ){
+function Card( { post } ){
     const navigate = useNavigate();
+
+    const date = new Date(post.created_at);
+    const formattedDate = date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+})
 
     return(
         <div className="post-card-container">
             {/* <img src={illustration} className="img-card-container" /> */}
-            <img className="img-card-container" alt="Image du post" src={`http://localhost:3000/uploads/${post.image}`}/>
+            <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
 
             <div className='userProfil-title-container'>
                 <img src={userProfil} alt='user-profil' className="user-profil" />
                 <div className='title-date-container'>
                     <h3 className='card-title'>{post.title}</h3>
-                    <p className='date'>Date</p>
+                    <p className='date'>{formattedDate}</p>
                 </div>
             </div>
             <div className='text-container'>
@@ -34,6 +42,14 @@ function Card( {post} ){
                     <img src={commentIcon} alt='comment-icon' className="comment-icon" />
                     <p className='nb-comments'>4</p>
                 </div>
+                <div className='trash-card'>
+                    <DeletePost />
+                </div>
+                <div className='comment-container'>
+                    <img src={commentIcon} alt='comment-icon' className="comment-icon" />
+                    <p className='nb-comments'><a onClick={() => navigate('/posts/:id/edit')}>Modifier</a></p>
+                </div>
+
 
             </div>
         </div>

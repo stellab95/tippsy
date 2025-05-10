@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import loginPicture from '../assets/img/creative-artist.jpeg'
 
 
 import '../styles/Login.css'
@@ -27,7 +28,7 @@ function Login(){
                 localStorage.setItem('token', data.token)
                 console.log("Connexion réussie");
                 
-                navigate('/')
+                navigate('/creatorprofile')
             } else {
                 console.error('Erreur de connexion', data.message)
             }
@@ -42,13 +43,24 @@ function Login(){
     }
 
     return (
-        <div className="form-wrapper">
+        <div className="login-main-container">
+            <img src={loginPicture} className="login-picture" />
+        <div className="login-form-wrapper">
+                <p className="logo-connexion">tippsy</p>
+                <p className="slogan">Tip. Support. Repeat.</p>
+                <p className="intro">Le meilleur endroit pour pour créer une communauté avec vos plus grands fans, partager des oeuvres exclusives et transformer votre passion en une entreprise durable.</p>
+           
             <form className="login-container" onSubmit={handleSubmit} encType="multipart/form-data">
-                <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                <input className="password" type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <button className="login-button" type="submit">Se connecter</button>
+                <div className="login-input">
+                    <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <input className="password" type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                </div>
+                <div className="login-button-container">
+                    <button className="login-button" type="submit">Connexion</button>
+                </div>
             </form>
-
+            <p className="register-link">Je n'ai pas de compte, <a onClick={() => navigate('/register')}>s'inscrire</a></p>
+            </div>
         </div>
     )   
 }
