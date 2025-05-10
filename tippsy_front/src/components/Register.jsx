@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import registerPicture from '../assets/img/create-icon.svg'
 
 import '../styles/Login.css'
 

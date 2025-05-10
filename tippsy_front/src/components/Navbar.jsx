@@ -2,13 +2,15 @@ import bellIcon from '../assets/icons/bell-icon.svg'
 import homeIcon from '../assets/icons/home-icon.svg'
 import usersIcon from '../assets/icons/users-icon.svg'
 import magnifyIcon from '../assets/icons/magnify-icon.svg'
-import settingsIcon from '../assets/icons/settings-icon.svg'
 import counterIcon from '../assets/icons/counter-icon.svg'
+import settingsIcon from '../assets/icons/settings-icon.svg'
+import userNavbarPicture from '../assets/img/woman-portrait.jpeg'
 
 import '../styles/Navbar.css'
 
 function Navbar(){
     return (
+        <div className='main-container'>
         <div className='navbar-container'>
         <div className="navbar-content">
             <a href="#" className='logo'>tippsy</a>
@@ -35,11 +37,16 @@ function Navbar(){
                     <a href="#">Paramètres</a>
                 </li>
             </ul>
+            </div>
+
             <div className='user-status'>
-            <p>username</p>
-            <p>status</p>
+                <a href="#"><img src={userNavbarPicture} alt='user-navbar-picture' className="user-navbar-picture" /></a>
+                <div>
+                    <p className='username'>username</p>
+                    <p className='status'>status</p>
+                </div>
             </div>
-            </div>
+        </div>
         </div>
     )
 }

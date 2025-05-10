@@ -1,13 +1,15 @@
-.post-container{
+.post-edit-container{
     display: flex;
+    margin: 60px 0 60px 0;
     flex-direction: column;
 }
 .preview{
-    width: 530px;
+    width: 710px;
+    height: auto;
     margin-bottom: 1rem;
 }
 .title{
-    width: 530px;
+    width: 710px;
     height: 60px;
     font-size: 30px;
     font-weight: 600;
@@ -19,7 +21,7 @@
     background-color: white;
 }
 .content{
-    width: 530px;
+    width: 710px;
     height: 260px;
     font-size: 16px;
     padding-left: 10px;
@@ -29,27 +31,19 @@
     background-color: white;
 
 }
-.post-edit-button{
+.post-edit-button, .return-button{
     width: 90px;
     height: 40px;
     font-size: 14px;
     font-weight: 600;
 }
-.return-button{
-    width: 90px;
-    height: 40px;   
-    font-size: 14px;
-    font-weight: 600;
-}
 .form-wrapper {
-    width: 100%;
     display: flex;
     margin-left: 280px;
-    max-width: 600px;
     justify-content: center;
 }
 .userId{
-    width: 530px;
+    width: 710px;
     height: 40px;
     margin-top: 20px;
     margin-bottom: 20px;

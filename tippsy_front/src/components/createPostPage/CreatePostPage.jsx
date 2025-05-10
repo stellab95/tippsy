@@ -3,7 +3,7 @@ import CreatePost from "../CreatePost"
 
 function CreatePostPage(){
     return (
-        <div className="main-container">
+        <div className="main-post-container">
             <Navbar />
             <div className="create-post-container">
                 <CreatePost />
