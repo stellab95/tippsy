@@ -1,0 +1,19 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+.profile-cardlist-container{
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+}
+.cardList-container {
+    display: flex;
+    padding: 20px;
+    flex: 1;
+    justify-content: center;
+}
+.lastsPosts{
+    color: black;
+}

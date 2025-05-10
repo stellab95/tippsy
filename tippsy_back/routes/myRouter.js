@@ -1,9 +1,14 @@
 import express from 'express';
 import pool from '../db.js';
 import multer from 'multer';
+import bcrypt from 'bcryptjs'
+import path from 'path';
+import jwt from 'jsonwebtoken'
+import verifyToken from '../middlewares/auth.js';
+
 
 const router = express.Router();
-// const upload = multer({ dest: 'uploads/' });
+const SECRET_KEY = process.env.JWT_SECRET || 'monsecret';
 
 // ROUTES USERS
 router.get('/users', async (req, res) => {
@@ -152,8 +157,7 @@ router.delete('/posts/:id', async (req, res) => {
 
 
 // ROUTE UPLOAD
-import path from 'path';
-
+// const upload = multer({ dest: 'uploads/' });
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: (req, file, cb) => {
@@ -170,6 +174,70 @@ router.post('/upload', upload.single('image'), (req, res) => {
 
   res.status(200).json({ file: req.file });
 });
+
+//ROUTE REGISTER
+router.post('/register', async (req, res) => {
+  console.log('Requête reçue à /register avec :', req.body);
+  const { username, email, password } = req.body;
+  
+  try {
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    await pool.query(`
+      INSERT INTO users (username, email, password)
+      VALUES ($1, $2, $3)`,
+      [username, email, hashedPassword])
+
+      console.log('Utilisateur créé avec succès');
+      res.status(201).json({ message: 'Utilisateur créé avec succès !' });
+  
+    } catch (error) {
+    console.error('Erreur dans lors de l\'inscription :', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+//ROUTE LOGIN
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  
+  try {
+    const result = await pool.query(`
+      SELECT * FROM users
+      WHERE email = $1`,
+      [email]
+      )
+
+      if (result.rows.length === 0) {
+        return res.status(401).json({ message: 'Utilisateur introuvable' })
+      }
+      
+    const user = result.rows[0]
+
+    const passwordMatch = await bcrypt.compare(password, user.password)
+
+    if (!passwordMatch) {
+      return res.status(401).json( { message: 'Mot de passe incnorect'})
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      SECRET_KEY,
+      { expiresIn: '1h' }
+    )
+
+    res.status(201).json({message: 'Utilisateur connecté avec succès !', token, user});
+  
+  } catch (error) {
+    console.error('Erreur lors de la connexion :', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.get('/protected', verifyToken, (req, res) => {
+  res.json({ message: 'Accès autorisé', user: req.user })
+})
 
 
 export default router;

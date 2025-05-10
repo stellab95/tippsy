@@ -1,5 +1,6 @@
 .post-container{
     display: flex;
+    margin: 60px 0 60px 0;
     flex-direction: column;
 }
 .title{
@@ -23,7 +24,6 @@
     color: rgb(93, 93, 93);
     border: 1px solid #d7d7d7;
     background-color: white;
-
 }
 .create-post-button{
     width: 90px;
@@ -38,10 +38,10 @@
     font-weight: 600;
 }
 .form-wrapper {
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     margin-left: 280px;
-    max-width: 600px;
+    /* max-width: 600px; */
     justify-content: center;
 }
 .userId{

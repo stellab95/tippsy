@@ -56,7 +56,7 @@ function CreatePost(){
                 {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} /> */}
                 <input className='userId' type="text" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
                 <div className='return-submit-buttons'>
-                    <button className='return-button' type="button" onClick={() => navigate('/')}>Retour</button>
+                    <button className='return-button' type="button" onClick={() => navigate('/creatorprofile')}>Retour</button>
                     <button className='create-post-button' type="submit">Publier</button>
                 </div>
             </form>

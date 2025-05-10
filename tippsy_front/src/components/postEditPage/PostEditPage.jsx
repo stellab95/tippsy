@@ -3,12 +3,14 @@ import PostEdit from "../PostEdit"
 
 function PostEditPage(){
     return (
-        <div className="main-container">
+        <>
+        <div className="edit-container">
             <Navbar />
             <div className="posts-edit-container">
                 <PostEdit />
             </div>
         </div>
+        </>
     )
 }
 

@@ -1,16 +1,16 @@
 .post-card-container{
-    width: 530px;
+    width: 710px;
     height: auto;
     padding: 10px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     color: black;
     margin-bottom: 20px;
     border-radius: 10px;
     background-color: white;
 }
 .img-card-container{
-    width: 525px;
-    height: 420px;
+    width: 705px;
+    height: auto;
     display: block;
     margin: 0 auto;
     max-width: 100%;

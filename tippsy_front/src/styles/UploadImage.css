@@ -22,18 +22,12 @@
     display: flex;
     align-content: center;
 }
-.preview{
+.preview > img{
     width: 530px;
     margin-bottom: 1rem;
 }
-/* .image-button{
-    display: flex;
-    align-items: center;
-    align-content: center;
-} */
 .image-icon, .camera-icon, .microphone-icon, .link-icon{
     width: 18px;
     height: 18px;
     margin-right: 8px;
-
 }
