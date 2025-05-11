@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import illustration from '../assets/img/pexels-heftiba-1194420.jpg'
+import { Link } from 'react-router-dom'
 import userProfil from '../assets/img/woman-portrait.jpeg'
 import heartIcon from '../assets/icons/heart-icon.svg'
 import commentIcon from '../assets/icons/comment-icon.svg'
+import editIcon from '../assets/icons/edit-icon.svg'
+import DeletePost from './deletePost'
 
 import '../styles/Card.css'
-import DeletePost from './deletePost';
 
 function Card( { post } ){
     const navigate = useNavigate();
@@ -20,7 +21,6 @@ function Card( { post } ){
 
     return(
         <div className="post-card-container">
-            {/* <img src={illustration} className="img-card-container" /> */}
             <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
 
             <div className='userProfil-title-container'>
@@ -43,14 +43,15 @@ function Card( { post } ){
                     <p className='nb-comments'>4</p>
                 </div>
                 <div className='trash-card'>
-                    <DeletePost />
+                    <DeletePost id={post.id} />
                 </div>
                 <div className='comment-container'>
-                    <img src={commentIcon} alt='comment-icon' className="comment-icon" />
-                    <p className='nb-comments'><a onClick={() => navigate('/posts/:id/edit')}>Modifier</a></p>
+                <Link to='/posts/:id/edit'>
+                    <img src={editIcon} alt="edit-icon" className="edit-icon" />
+                </Link>
+                    {/* <img src={editIcon} alt='edit-icon' className="edit-icon" />
+                    <p className='nb-comments'><a onClick={() => navigate('/posts/:id/edit')}></a></p> */}
                 </div>
-
-
             </div>
         </div>
         )

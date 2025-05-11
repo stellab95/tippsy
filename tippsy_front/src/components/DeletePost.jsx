@@ -1,27 +1,33 @@
 import { useNavigate } from 'react-router-dom'
-import { useParams } from 'react-router-dom';
 import trashIcon from '../assets/icons/trash-icon.svg'
 
 import '../styles/DeletePost.css'
 
-function DeletePost(){
+function DeletePost({ id }){
     const navigate = useNavigate()
-    const { id } = useParams();
     console.log("ID récupéré depuis l'URL :", id);
 
 
-const handleSubmit = async (e) => {
+const handleDelete = async (e) => {
     e.preventDefault()    
 
+const token = localStorage.getItem('token')
+
 try {
+    console.log('Token envoyé :', token);
     const response = await fetch(`http://localhost:3000/posts/${id}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     })
 
     if (response.ok){
         const data = await response.json()
         console.log(('Post supprimé', data));
-        navigate('/creatorprofile')
+        //navigate('/creatorprofile')
+        window.location.reload()
     } else {
         console.error('Erreur lors de la suppression')
     }
@@ -32,7 +38,7 @@ try {
 }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleDelete}>
             <button className="trash-icon" type='submit'><img src={trashIcon} alt='trash-icon' className='trash-img'/></button>
         </form>
     )

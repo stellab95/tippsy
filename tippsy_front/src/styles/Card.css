@@ -65,4 +65,10 @@ margin-top: 15px;
 }
 .trash-card{
     all: unset;
+    margin-right: 8px;
+}
+.edit-icon{
+    width: 20px;
+    height: 20px;
+
 }
