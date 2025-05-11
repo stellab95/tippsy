@@ -140,9 +140,22 @@ router.put('/posts/:id', async (req, res) => {
   }
 });
   
-router.delete('/posts/:id', async (req, res) => {
+router.delete('/posts/:id', verifyToken, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id
+
+  console.log('ID du post demandé :', id);
+  console.log('ID de l\'utilisateur connecté :', userId);
+  
   try {
-    const { id } = req.params;
+    const post = await pool.query(
+      'SELECT * FROM posts WHERE id = $1 AND user_id = $2',
+      [id, userId]
+    )
+
+    if(post.rows.length === 0) {
+      return res.status(403).json({ error: 'Vous n\'avez pas le droit de supprimer ce post' })
+    }
 
     const result = await pool.query(
       `DELETE FROM posts WHERE id = $1 RETURNING id`,

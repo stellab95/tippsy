@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import path from 'path';
 import cors from 'cors';
 import pool from './db.js'
@@ -5,6 +8,7 @@ import express from 'express';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import myRouter from './routes/myRouter.js';
+
 
 const app = express()
 const port = process.env.PORT || 3000
