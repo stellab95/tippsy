@@ -11,7 +11,6 @@ function PostEdit(){
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [image, setImage] = useState('')
-    const [userId, setUserId] = useState('')
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -24,11 +23,10 @@ function PostEdit(){
                 
                 const data = await response.json()
                 console.log('Post récupéré:', data);
-                if (data && data.title && data.content && data.image && data.user_id) {
+                if (data && data.title && data.content && data.image) {
                 setTitle(data.title);
                 setContent(data.content);
                 setImage(data.image);
-                setUserId(data.user_id);
                 } else {
                     console.error('Données manquantes dans la réponse', data);
                 }
@@ -37,10 +35,19 @@ function PostEdit(){
         }
     }
     fetchPost()
-    }, [id])    
+    }, [id])
+    
+    const token = localStorage.getItem('token')
+    let userId = null
+
+    if (token) {
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        userId = payload.id
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log("Je suis clique")
 
         try{
             const response = await fetch(`http://localhost:3000/posts/${id}`, {
@@ -56,12 +63,12 @@ function PostEdit(){
                })
             })
             const data = await response.json()
-            console.log('Post modifié', data)
+            console.log('reponse du serveur', data)
+            navigate('/creatorprofile')
 
             setTitle('')
             setContent('')
             setImage('')
-            setUserId('')
         
         }catch (error){
             console.error('Erreur lors de la modification du post :', error)
@@ -76,9 +83,8 @@ function PostEdit(){
                 {/* <input type="text" value={image || ''} onChange={(e) => setImage(e.target.value)} /> */}
                 <input className="title" type="text" placeholder="Titre" value={title || ''} onChange={(e) => setTitle(e.target.value)} />
                 <input className="content" type="text" placeholder="Commencez à écrire..." value={content || ''} onChange={(e) => setContent(e.target.value)} />
-                <input className="userId" type="text" placeholder="User ID" value={userId || ''} onChange={(e) => setUserId(e.target.value)} />
                 <div className="return-edit-buttons">
-                    <button className="return-button" type="button" onClick={() => navigate('/')}>Retour</button>
+                    <button className="return-button" type="button" onClick={() => navigate('/creatorprofile')}>Retour</button>
                     <button className="post-edit-button" type="submit">Modifier</button>
                 </div>
             </form>

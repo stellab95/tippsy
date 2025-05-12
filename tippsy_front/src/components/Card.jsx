@@ -34,6 +34,7 @@ function Card( { post } ){
                 <p className="text-post">{post.content}</p>
             </div>
             <div className='interactivity'>
+                <div className='likes-comment-container'>
                 <div className='heart-container'>
                     <img src={heartIcon} alt='heart-icon' className="heart-icon" />
                     <p className='nb-likes'>42</p>
@@ -42,15 +43,16 @@ function Card( { post } ){
                     <img src={commentIcon} alt='comment-icon' className="comment-icon" />
                     <p className='nb-comments'>4</p>
                 </div>
-                <div className='trash-card'>
-                    <DeletePost id={post.id} />
                 </div>
-                <div className='comment-container'>
-                <Link to='/posts/:id/edit'>
-                    <img src={editIcon} alt="edit-icon" className="edit-icon" />
-                </Link>
-                    {/* <img src={editIcon} alt='edit-icon' className="edit-icon" />
-                    <p className='nb-comments'><a onClick={() => navigate('/posts/:id/edit')}></a></p> */}
+                <div className='delete-edit-container'>
+                    <div className='trash-card'>
+                        <DeletePost id={post.id} />
+                    </div>
+                    <div className='comment-container'>
+                        <Link to={`/posts/${post.id}/edit`}>
+                            <img src={editIcon} alt="edit-icon" className="edit-icon" />
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
