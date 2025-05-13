@@ -11,22 +11,35 @@ function CreatePost(){
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [image, setImage] = useState('null')
-    const [userId, setUserId] = useState('')
-    
+
+    const token = localStorage.getItem('token')    
+    let userId = null
+
+    if (token) {
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        userId = payload.id
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         const formData = new FormData()
         formData.append('title', title)
         formData.append('content', content)
-        formData.append('user_id', userId)
         formData.append('image', image)
 
         try {
             const response = await fetch('http://localhost:3000/posts', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, content, user_id: userId, image }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    title,
+                    content,
+                    image,
+                })
             })
 
             if (response.ok){
@@ -39,7 +52,6 @@ function CreatePost(){
             setTitle('');
             setContent('');
             setImage('');
-            setUserId('')
 
         }catch (error) {
             console.error('Erreur lors de la création du post :', error)
@@ -53,7 +65,6 @@ function CreatePost(){
                 <input className='title' type="text" placeholder="Titre" value={title} onChange={(e) => setTitle(e.target.value)} />
                 <input className='content' type="text" placeholder="Commencez à écrire..." value={content} onChange={(e) => setContent(e.target.value)} />
                 {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} /> */}
-                <input className='userId' type="text" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} />
                 <div className='return-submit-buttons'>
                     <button className='return-button' type="button" onClick={() => navigate('/creatorprofile')}>Retour</button>
                     <button className='create-post-button' type="submit">Publier</button>

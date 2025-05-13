@@ -41,13 +41,18 @@ function UploadImage({ setImage }) {
             console.log('Erreur lors de l\'envoi du fichier :', err);
         }
     }
-    
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    }
 
     return (
         <>
             <div className="all-buttons">
                 <div className="image-button">
-                    <button className="upload-image" onClick={handleUploadClick}><img src={imageIcon} alt='image-icon' className="image-icon" />Image</button>
+                    <button className="upload-image" type="button" onClick={handleUploadClick}><img src={imageIcon} alt='image-icon' className="image-icon" />Image</button>
                     <input
                         type="file"
                         accept="image/*"
@@ -57,7 +62,7 @@ function UploadImage({ setImage }) {
                     />
                 </div>
                 <div className="video-button">
-                    <button className="upload-image"><img src={cameraIcon} alt='camera-icon' className="camera-icon" />Vidéo</button>
+                    <button className="upload-image" onKeyDown={handleKeyDown}><img src={cameraIcon} alt='camera-icon' className="camera-icon" />Vidéo</button>
                 </div>
                 <div className="microphone-icon-button">
                     <button className="upload-image"><img src={microphoneIcon} alt='microphone-icon' className="microphone-icon" />Audio</button>
