@@ -99,20 +99,17 @@ router.get('/posts/:id', async (req, res) => {
 });
 
 
-router.post('/posts', async (req, res) => {
+router.post('/posts', verifyToken, async (req, res) => {
+  const userId = req.user.id
+  
   try {
-    const { title, content, image, user_id } = req.body;
-
-    const userIdInt = parseInt(user_id, 10)
-    if (isNaN(userIdInt)) {
-      return res.status(400).json({ error: 'user_id invalide' })
-    }
+    const { title, content, image} = req.body;
 
     const result = await pool.query(
       `INSERT INTO posts (title, content, image, user_id)
        VALUES ($1, $2, $3, $4)
        RETURNING *`,
-      [title, content, image, userIdInt]
+      [title, content, image, userId]
     );
 
     res.status(200).json(result.rows[0]);
@@ -123,16 +120,32 @@ router.post('/posts', async (req, res) => {
 });
 
 router.put('/posts/:id', async (req, res) => {
+  console.log("REQ", req.params)
+  
   try {
-    const { title, content, image, user_id } = req.body;
+    const { title, content, image} = req.body;
     const { id } = req.params;
+    console.log("id", id)
+    //const userId = req.user.id
+
+    const post = await pool.query(
+      `SELECT *FROM posts WHERE id = $1`,
+      [id]
+      // [id, userId]
+    )
+    console.log("POST", post)
     
+    if(post.rows.length === 0) {
+      return res.status(403).json({ error: 'Je ne trouve pqs ce post' })
+    }
+
     const result = await pool.query(
-     `UPDATE posts SET title = $1, content = $2, image = $3, user_id = $4
-      WHERE id = $5
+     `UPDATE posts SET title = $1, content = $2, image = $3
+      WHERE id = $4
       RETURNING *`,
-      [title, content, image, user_id, id]
+      [title, content, image, id]
     );
+
     res.status(200).json(result.rows[0]);
   } catch (error) {
     console.error('Erreur dans /posts/:id :', error);
@@ -236,7 +249,7 @@ router.post('/login', async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      SECRET_KEY,
+      process.env.JWT_SECRET,
       { expiresIn: '1h' }
     )
 
@@ -248,9 +261,9 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/protected', verifyToken, (req, res) => {
-  res.json({ message: 'Accès autorisé', user: req.user })
-})
+// router.get('/protected', verifyToken, (req, res) => {
+//   res.json({ message: 'Accès autorisé', user: req.user })
+// })
 
 
 export default router;
