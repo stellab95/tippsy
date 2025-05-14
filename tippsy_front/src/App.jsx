@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './components/homePage/HomePage';
-import CreatePost from './components/CreatePost';
 import CreatorProfilePage from './components/CreatorProfilePage/CreatorProfilePage';
 import CreatePostPage from './components/createPostPage/CreatePostPage';
 import PostEditPage from './components/postEditPage/PostEditPage';
 import Login from './components/Login';
 import Register from './components/Register';
 import DeletePost from './components/deletePost';
+import ProfileEdit from './components/ProfileEdit';
 
 const router = createBrowserRouter([
   {
@@ -36,7 +36,11 @@ const router = createBrowserRouter([
   {
     path: '/posts/:id/delete',
     element: <DeletePost />
-  }   
+  },
+  {
+    path: '/profileedit',
+    element: <ProfileEdit />
+  }
 
 ])
 

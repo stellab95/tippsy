@@ -5,10 +5,23 @@ import magnifyIcon from '../assets/icons/magnify-icon.svg'
 import counterIcon from '../assets/icons/counter-icon.svg'
 import settingsIcon from '../assets/icons/settings-icon.svg'
 import userNavbarPicture from '../assets/img/woman-portrait.jpeg'
+import { useEffect, useState } from 'react'
 
 import '../styles/Navbar.css'
 
 function Navbar(){
+    const [username, setUsername] = useState('')
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            const payload = JSON.parse(atob(token.split('.')[1]))
+            console.log(payload);
+            setUsername(payload.username)
+            
+        }
+    }, [])
+
     return (
         <div className='main-container'>
         <div className='navbar-container'>
@@ -42,7 +55,7 @@ function Navbar(){
             <div className='user-status'>
                 <a href="#"><img src={userNavbarPicture} alt='user-navbar-picture' className="user-navbar-picture" /></a>
                 <div>
-                    <p className='nav-username'>username</p>
+                    <p className='nav-username'>{username}</p>
                     <p className='status'>status</p>
                 </div>
             </div>

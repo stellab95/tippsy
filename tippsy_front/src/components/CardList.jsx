@@ -1,19 +1,35 @@
 import { useEffect , useState} from 'react'
 import Card from './Card'
 
-function TestCardList(){
+function CardList(){
     const [posts, setPosts] = useState([])
+    const [error, setError] = useState(null);
 
-useEffect(() => {
+    useEffect(() => {
     const fetchData = async () => {
-        let url = 'http://localhost:3000/posts'
+        const token = localStorage.getItem('token')
+
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        const userId = payload.id
+
+        try {
+            const response = await fetch(`http://localhost:3000/users/${userId}/posts`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des posts')
+            }
         
-        const response = await fetch(url)
         const data = await response.json()
-        setPosts(data)
-        console.log(posts);
-        
+        console.log('DATA REÇUE :', data)
+        setPosts(data)        
+    } catch (err) {
+        setError(err.message)
     }
+}
     fetchData()
 }, [])
 
@@ -26,4 +42,4 @@ return (
 )
 }
 
-export default TestCardList
+export default CardList

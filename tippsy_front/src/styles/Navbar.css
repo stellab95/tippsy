@@ -29,7 +29,7 @@ li{
     align-content: space-between;
 }
 .navbar-container{
-    width: 280px;
+    width: 250px;
     height: 100vh;
     display: flex;
     position: fixed;
@@ -51,6 +51,7 @@ li{
     font-family: "Cherry Bomb One", system-ui;
 }
 .dashboard{
+    color: white;
     font-size: 16px;
     font-weight: 600;
     margin: 40px 0 40px 0;
@@ -70,6 +71,7 @@ li{
 }
 .user-status{
 display: flex;
+color: white;
 align-items: center;
 }
 .nav-username{

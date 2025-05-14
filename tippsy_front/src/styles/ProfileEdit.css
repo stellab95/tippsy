@@ -1,0 +1,23 @@
+.change-user-profile-picture{
+    display: flex;
+    align-content: space-between;
+}
+.profile-picture-title, .cover-title, .change-biography{
+    font-weight: 500;
+}
+.change-user-picture{
+    width: 140px;
+    height: 140px;
+    color: white;
+    font-size: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    align-items: center;
+    border: 2px solid black;
+    background-color: #efece8;
+}
+.change-cover-user-profile{
+    width: 550px;
+    height: 220px;
+    background-color: cadetblue;
+}

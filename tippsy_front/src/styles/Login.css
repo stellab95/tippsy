@@ -50,11 +50,16 @@ body{
 
 }
 .login-button{
+    border: 0;
     width: 90px;
     height: 40px;
-    margin-top: 50px;  
+    color: white;
     font-size: 14px;
+    margin-top: 50px;  
     font-weight: 600;
+    border-radius: 6px;
+    background-color: #2B2B2B;
+
 }
 .register-link{
     font-size: 14px;
