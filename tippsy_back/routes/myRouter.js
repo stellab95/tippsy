@@ -21,6 +21,26 @@ router.get('/users', async (req, res) => {
   }
 });
 
+router.get('/users/:id/posts', verifyToken, async (req, res) => {
+  const { id } = req.params
+  const userId = req.user.id
+
+  if (parseInt(id) !== userId) {
+    return res.status(403).json({ error: 'Accès refusé' })
+  }
+
+  try {
+    const result = await pool.query(
+      `SELECT * FROM posts WHERE user_id = $1`,
+      [userId]
+    );
+      res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Erreur dans /users/:id/posts :', error);
+    res.status(500).json({ error: 'Erreur serveur' })
+  }
+})
+
 router.post('/users', async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -119,24 +139,24 @@ router.post('/posts', verifyToken, async (req, res) => {
   }
 });
 
-router.put('/posts/:id', async (req, res) => {
+router.put('/posts/:id', verifyToken, async (req, res) => {
   console.log("REQ", req.params)
   
   try {
     const { title, content, image} = req.body;
     const { id } = req.params;
     console.log("id", id)
-    //const userId = req.user.id
+    const userId = req.user.id
 
     const post = await pool.query(
-      `SELECT *FROM posts WHERE id = $1`,
-      [id]
-      // [id, userId]
+      `SELECT * FROM posts WHERE id = $1 AND user_id = $2`,
+      //[id]
+      [id, userId]
     )
     console.log("POST", post)
     
     if(post.rows.length === 0) {
-      return res.status(403).json({ error: 'Je ne trouve pqs ce post' })
+      return res.status(403).json({ error: 'Je ne trouve pas ce post' })
     }
 
     const result = await pool.query(
@@ -248,7 +268,7 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { id: user.id, username: user.username, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     )
