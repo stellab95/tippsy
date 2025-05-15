@@ -42,12 +42,13 @@ function UploadImage({ setImage }) {
         }
     }
 
-    const handleKeyDown = (e) => {
+        const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
         }
     }
 
+    
     return (
         <>
             <div className="all-buttons">

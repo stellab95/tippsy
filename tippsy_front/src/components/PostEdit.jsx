@@ -24,9 +24,9 @@ function PostEdit(){
                 const data = await response.json()
                 console.log('Post récupéré:', data);
                 if (data && data.title && data.content && data.image) {
-                setTitle(data.title);
-                setContent(data.content);
-                setImage(data.image);
+                    setTitle(data.title);
+                    setContent(data.content);
+                    setImage(data.image);
                 } else {
                     console.error('Données manquantes dans la réponse', data);
                 }
@@ -45,36 +45,36 @@ function PostEdit(){
         userId = payload.id
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        console.log("Je suis clique")
+const handleSubmit = async (e) => {
+    e.preventDefault()
 
-        try{
-            const response = await fetch(`http://localhost:3000/posts/${id}`, {
-               method: 'PUT',
-               headers: {
+    try {
+        const response = await fetch(`http://localhost:3000/posts/${id}`, {
+            method: 'PUT',
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-               },
-               body: JSON.stringify({
+            },
+            body: JSON.stringify({
                 title,
                 content,
                 image,
                 user_id: userId
-               })
             })
-            const data = await response.json()
-            console.log('reponse du serveur', data)
-            navigate('/creatorprofile')
+        })
 
-            setTitle('')
-            setContent('')
-            setImage('')
-        
-        }catch (error){
-            console.error('Erreur lors de la modification du post :', error)
-        }
+        const data = await response.json()
+        console.log('Réponse du serveur', data)
+        navigate('/creatorProfile')
+
+        setTitle('')
+        setContent('')
+        setImage('')
+
+    } catch (error) {
+        console.error('Erreur lors de la modification du profil :', error)
     }
+}
 
     return (
         <div className="form-wrapper">

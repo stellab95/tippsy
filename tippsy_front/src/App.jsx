@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     element: <DeletePost />
   },
   {
-    path: '/profileedit',
+    path: '/profileedit/:id',
     element: <ProfileEdit />
   }
 
