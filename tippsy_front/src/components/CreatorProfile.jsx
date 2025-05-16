@@ -18,12 +18,12 @@ function CreatorProfile(){
         const token = localStorage.getItem('token')
         if (token) {
             const payload = JSON.parse(atob(token.split('.')[1]))
-            const userIdFromToken = payload.id
-            setUserId(userIdFromToken)
+            const userId = payload.id
+            setUserId(userId)
             console.log(payload);
             setUsername(payload.username)
 
-            fetch(`http://localhost:3000/users/${userIdFromToken}`)
+            fetch(`http://localhost:3000/users/${userId}`)
             .then(res => res.json())
             .then(data => {
                 setAvatar(data.avatar)
@@ -46,7 +46,7 @@ function CreatorProfile(){
                         <button className='left-button' type="button" onClick={() => navigate('/createpost')}>
                         <img src={createIcon} className="create-icon" />Créer</button>
                         
-                        <button className='right-button' type="button" onClick={() => navigate(`/profileedit/${userIdFromToken}`)}>
+                        <button className='right-button' type="button" onClick={() => navigate(`/profileedit/${userId}`)}>
                         <img src={createIcon} className="create-icon" />Modifier la page</button>
                 </div>
                 <p className='profile-header-username'>{username}</p>

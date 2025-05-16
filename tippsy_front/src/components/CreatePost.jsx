@@ -10,7 +10,7 @@ function CreatePost(){
     
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
-    const [image, setImage] = useState('null')
+    const [image, setImage] = useState('')
 
     const token = localStorage.getItem('token')    
     let userId = null
@@ -23,12 +23,9 @@ function CreatePost(){
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const formData = new FormData()
-        formData.append('title', title)
-        formData.append('content', content)
-        formData.append('image', image)
-
         try {
+            console.log("Image envoyée :", image)
+
             const response = await fetch('http://localhost:3000/posts', {
                 method: 'POST',
                 headers: {

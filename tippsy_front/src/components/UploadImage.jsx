@@ -35,6 +35,7 @@ function UploadImage({ setImage }) {
             const data = JSON.parse(responseText);
             
             // Récupère le nom du fichier uploadé et mets à jour le state image
+            console.log("Nom du fichier reçu :", data.file.filename)
             setImage(data.file.filename)
 
         } catch (err) {
