@@ -61,7 +61,6 @@ function CreatePost(){
                 <UploadImage setImage={setImage}/>
                 <input className='title' type="text" placeholder="Titre" value={title} onChange={(e) => setTitle(e.target.value)} />
                 <input className='content' type="text" placeholder="Commencez à écrire..." value={content} onChange={(e) => setContent(e.target.value)} />
-                {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} /> */}
                 <div className='return-submit-buttons'>
                     <button className='return-button' type="button" onClick={() => navigate('/creatorprofile')}>Retour</button>
                     <button className='create-post-button' type="submit">Publier</button>

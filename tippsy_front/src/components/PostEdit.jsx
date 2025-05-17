@@ -79,9 +79,8 @@ const handleSubmit = async (e) => {
     return (
         <div className="form-wrapper">
             <form className="post-edit-container" onSubmit={handleSubmit}>
-                <UploadImage setImage={setImage}/>
-                {image && (<img className="preview" src={`http://localhost:3000/uploads/${image}`} alt="Aperçu" />)}
-                {/* <input type="text" value={image || ''} onChange={(e) => setImage(e.target.value)} /> */}
+                <UploadImage setImage={setImage} initialImage={image} />
+                {/* {image && (<img className="preview" src={`http://localhost:3000/uploads/${image}`} alt="Aperçu" />)} */}
                 <input className="title" type="text" placeholder="Titre" value={title || ''} onChange={(e) => setTitle(e.target.value)} />
                 <input className="content" type="text" placeholder="Commencez à écrire..." value={content || ''} onChange={(e) => setContent(e.target.value)} />
                 <div className="return-edit-buttons">

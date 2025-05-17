@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import imageIcon from '../assets/icons/image-icon.svg'
 import cameraIcon from '../assets/icons/camera-icon.svg'
 import microphoneIcon from '../assets/icons/microphone-icon.svg'
@@ -7,8 +7,14 @@ import linkIcon from '../assets/icons/link-icon.svg'
 import '../styles/UploadImage.css'
 
 
-function UploadImage({ setImage }) {
-    const [preview, setPreview] = useState(null)
+function UploadImage({ setImage, initialImage }) {
+    const [preview, setPreview] = useState(initialImage ? `http://localhost:3000/uploads/${initialImage}` : null)
+
+useEffect(() => {
+    if (initialImage) {
+        setPreview(`http://localhost:3000/uploads/${initialImage}`)
+    }
+}, [initialImage])
 
     const fileInputRef = useRef(null)
 
@@ -17,26 +23,28 @@ function UploadImage({ setImage }) {
     }
     const handleFileChange = async (e) => {
         const file = e.target.files[0]
-        if (!file) return
+        if (file){
+            setImage(file.name)
+            setPreview(URL.createObjectURL(file))
+        }
 
-        setPreview(URL.createObjectURL(file))
 
         const formData = new FormData()
         formData.append('image', file)
 
         try {
-            const response = await fetch('http://localhost:3000/upload', {
+            const uploadResponse = await fetch('http://localhost:3000/upload', {
                 method: 'POST',
                 body: formData
             })
-            const responseText = await response.text()
-            console.log('Réponse brute du serveur :', responseText);
+            const uploadData = await uploadResponse.json()
+            console.log('Réponse brute du serveur :', uploadData);
 
-            const data = JSON.parse(responseText);
-            
+            const imageFilename = uploadData.file.filename;
+
             // Récupère le nom du fichier uploadé et mets à jour le state image
-            console.log("Nom du fichier reçu :", data.file.filename)
-            setImage(data.file.filename)
+            console.log("Nom du fichier reçu :", uploadData.file.filename)
+            setImage(imageFilename)
 
         } catch (err) {
             console.log('Erreur lors de l\'envoi du fichier :', err);

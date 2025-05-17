@@ -19,10 +19,10 @@ function Card( { post } ){
       year: 'numeric',
 })
 
-    return(
-        <div className="post-card-container">
+console.log(post.image)
+return(
+    <div className="post-card-container">
             <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
-
             <div className='userProfil-title-container'>
                 <img src={userProfil} alt='user-profil' className="user-profil" />
                 <div className='title-date-container'>
