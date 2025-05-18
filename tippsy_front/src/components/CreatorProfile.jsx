@@ -16,6 +16,12 @@ function CreatorProfile(){
 
     useEffect(() => {
         const token = localStorage.getItem('token')
+
+        if (!token){
+            navigate('/login')
+            return
+        }
+
         if (token) {
             const payload = JSON.parse(atob(token.split('.')[1]))
             const userId = payload.id
@@ -60,3 +66,4 @@ function CreatorProfile(){
 }
 
 export default CreatorProfile
+
