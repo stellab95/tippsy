@@ -1,19 +1,28 @@
 body, html {
     margin: 0;
     padding: 0;
-    /* overflow-x: hidden; */
+}
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .profile-cardlist-container{
+    flex: 1;
     display: flex;
-    margin: 0;
     flex-direction: column;
 }
 .cardList-container {
+    flex: 1;
     display: flex;
     padding: 20px;
-    flex: 1;
     justify-content: center;
 }
-.lastsPosts{
-    color: black;
-}
+.navbar {
+    position: fixed;
+    z-index: 1000;
+    width: 250px;
+    height: 100vh;
+    /* left: 0;
+    top: 0; */
+  }

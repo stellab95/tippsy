@@ -12,6 +12,26 @@ import '../styles/Card.css'
 function Card( { post } ){
     const navigate = useNavigate();
 
+    const [userId, setUserId] = useState('')
+    const [avatar, setAvatar] = useState('')
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+
+        if (token) {
+            const payload = JSON.parse(atob(token.split('.')[1]))
+            const userId = payload.id
+            setUserId(userId)
+
+            fetch(`http://localhost:3000/users/${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                setAvatar(data.avatar)
+            })
+            .catch(err => console.error(err))
+        }
+    }, [])
+
     const date = new Date(post.created_at);
     const formattedDate = date.toLocaleDateString('fr-FR', {
       day: 'numeric',
@@ -24,7 +44,8 @@ return(
     <div className="post-card-container">
             <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
             <div className='userProfil-title-container'>
-                <img src={userProfil} alt='user-profil' className="user-profil" />
+                {/* <img src={userProfil} alt='user-profil' className="user-profil" /> */}
+                <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profil" />
                 <div className='title-date-container'>
                     <h3 className='card-title'>{post.title}</h3>
                     <p className='date'>{formattedDate}</p>

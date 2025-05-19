@@ -6,17 +6,22 @@ import '../../styles/CreatorProfilePage.css'
 
 function CreatorProfilePage(){
     return (
-        <div className="main-container">
-            <Navbar />
-            <div className="profile-cardlist-container">
-                <div className="images-container">
-                    <CreatorProfile />
-                </div>
-                <div className="cardList-container">
+        <>
+            <div className="navbar">
+                <Navbar />
+            </div>
+            
+            <div className="main-container">
+                <div className="profile-cardlist-container">
+                    <div className="images-container">
+                        <CreatorProfile />
+                    </div>
+                    <div className="cardList-container">
                     <CardList />
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

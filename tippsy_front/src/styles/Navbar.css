@@ -29,17 +29,18 @@ li{
 }
 .navbar-container{
     width: 250px;
-    height: 100vh;
+    z-index: 1000;
     display: flex;
     position: fixed;
+    min-height: 100vh;
     flex-direction: column;
     background-color: #2B2B2B;
-    align-content: space-between;
+    justify-content: space-between;
 }
 .navbar-content{
     font-size: 14px;
     font-weight: 600;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 0;
     margin-left: 30px;
     font-family: "poppins", sans-serif;
@@ -55,6 +56,10 @@ li{
     font-weight: 600;
     margin: 40px 0 40px 0;
 }
+.links-container > li{
+    margin-bottom: 30px;
+}
+
 .bell-icon, .home-icon, .magnify-icon, .settings-icon, .users-icon{
     width: 15px;
     height: 15px;
@@ -71,6 +76,7 @@ li{
 .user-status{
 display: flex;
 color: white;
+margin-bottom: 50px;
 align-items: center;
 }
 .nav-username{

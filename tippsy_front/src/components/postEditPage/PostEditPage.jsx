@@ -4,8 +4,11 @@ import PostEdit from "../PostEdit"
 function PostEditPage(){
     return (
         <>
-        <div className="edit-container">
+        <div className="navbar">
             <Navbar />
+        </div>
+
+        <div className="main-container">
             <div className="posts-edit-container">
                 <PostEdit />
             </div>

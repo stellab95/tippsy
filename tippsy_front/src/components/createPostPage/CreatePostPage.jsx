@@ -3,12 +3,16 @@ import CreatePost from "../CreatePost"
 
 function CreatePostPage(){
     return (
-        <div className="main-post-container">
+        <>
+        <div className="navbar">
             <Navbar />
-            <div className="create-post-container">
-                <CreatePost />
-            </div>
         </div>
+            <div className="main-post-container">
+                <div className="create-post-container">
+                    <CreatePost />
+                </div>
+            </div>
+        </>
     )
 }
 

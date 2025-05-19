@@ -40,8 +40,9 @@ margin-top: 15px;
     flex-direction: column;
 }
 .text-post{
-    width: 520px;
+    width: 645px;
     font-size: 14px;
+    margin-left: 60px;
     text-align: justify;
 }
 .text-container{
@@ -49,8 +50,8 @@ margin-top: 15px;
 }
 .interactivity{
     display: flex;
-    align-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    justify-content: space-between;
 }
 .likes-comment-container{
     display: flex;
