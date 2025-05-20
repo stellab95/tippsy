@@ -8,6 +8,7 @@ import Register from './components/Register';
 import DeletePost from './components/deletePost';
 import ProfileEdit from './components/ProfileEdit';
 import CreatorProfile from './components/CreatorProfile';
+import MemberProfile from './components/MemberProfile';
 
 const router = createBrowserRouter([
   {
@@ -42,8 +43,8 @@ const router = createBrowserRouter([
     path: '/profileedit/:id',
     element: <ProfileEdit />
   },
-  {path: '/creatorprofiletest',
-  element: <CreatorProfile />
+  {path: '/memberprofile',
+  element: <MemberProfile />
   }
 
 

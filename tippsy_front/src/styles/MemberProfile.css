@@ -1,0 +1,13 @@
+
+.main-post-container{
+    display: flex;
+    height: 100vh;
+}
+.create-post-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+      

@@ -11,6 +11,7 @@ function Register(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [roles, setRoles] = useState([])
+    const [error, setError] = useState('')
 
     const handleRoleChange = (role) => {
         setRoles(prevRoles => {
@@ -24,6 +25,13 @@ function Register(){
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if (roles.length === 0){
+            setError("Selectionne au moins un profil")
+        return
+        }
+
+        setError('')
 
         try {
             const response = await fetch('http://localhost:3000/register', {
@@ -71,24 +79,25 @@ function Register(){
                     </div>
 
                     <div className="role-checkboxes">
-                        <label>
+                        <label className="member">
                             <input
                             type="checkbox"
                             checked={roles.includes('member')}
                             onChange={() => handleRoleChange('member')}
                             />
-                            Je suis fan
+                            Je suis un fan
                         </label>
-                        <label>
+                        <label className="creator">
                             <input
                             type="checkbox"
                             checked={roles.includes('creator')}
                             onChange={() => handleRoleChange('creator')}
                             />
-                            Je suis artiste
+                            Je suis un créateur (ou les deux 😉)
                         </label>
                     </div>
-                    
+                    {error && <p className="error-message">Sélectionne au moins un profil ! 🥲</p>}
+
                     <div className="register-button-container">
                         <button className="register-button" type="submit">S'inscrire</button>
                     </div>
