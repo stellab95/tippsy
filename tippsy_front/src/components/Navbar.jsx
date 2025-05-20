@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import bellIcon from '../assets/icons/bell-icon.svg'
 import homeIcon from '../assets/icons/home-icon.svg'
 import usersIcon from '../assets/icons/users-icon.svg'
 import magnifyIcon from '../assets/icons/magnify-icon.svg'
-import counterIcon from '../assets/icons/counter-icon.svg'
 import settingsIcon from '../assets/icons/settings-icon.svg'
 import userNavbarPicture from '../assets/img/woman-portrait.jpeg'
+import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
+
+
 
 import '../styles/Navbar.css'
 
 function Navbar(){
-    const [username, setUsername] = useState('')
+    const navigate = useNavigate()
 
+    const [username, setUsername] = useState('')
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
 
@@ -34,6 +37,24 @@ function Navbar(){
             .catch(err => console.error(err))
         }
     }, [])
+
+        const handleLogout = async () => {
+            try {    
+                const response = await fetch('http://localhost:3000/logout', {
+                    method: 'POST',
+                    credentials: 'include',
+                })
+    
+                if (!response.ok) {
+                    throw new Error(`Échec de la déconnexion ${response.status}`)
+                }
+                console.log('Déconnexion réussie');
+                navigate('/login')
+            } catch (e) {
+                console.error('Erreur lors de la déconnexion :', e.message)
+            }
+        }
+    
 
     return (
         <div className='main-container'>
@@ -66,16 +87,24 @@ function Navbar(){
                 </div>
 
                 <div className='user-status'>
+                        <img src={
+                            avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos
+                            : `http://localhost:3000/uploads/${avatar}`}
+                            alt='avatar'
+                            className="user-navbar-picture" />
+                    
                     {/* <a href="#"><img src={userNavbarPicture} alt='user-navbar-picture' className="user-navbar-picture" /></a> */}
-                    <img src={`http://localhost:3000/uploads/${avatar}`} className="user-navbar-picture" />
+                    {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-navbar-picture" /> */}
                     <div>
                         <p className='nav-username'>{username}</p>
                         <p className='status'>status</p>
                     </div>
                 </div>
+                    <button type='button' onClick={handleLogout}>Déconnexion</button>
             </div>
         </div>
     )
 }
+
 
 export default Navbar

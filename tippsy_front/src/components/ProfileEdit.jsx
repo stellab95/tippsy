@@ -77,7 +77,6 @@ function ProfileEdit() {
             if (response.ok){
                 console.log("Profil modifié avec succès !")
             navigate('/creatorProfile')
-                //navigate(0)
                 } else {
                 console.error("Erreur lors de la modification du profil")
                 }

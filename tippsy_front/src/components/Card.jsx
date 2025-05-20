@@ -6,6 +6,9 @@ import heartIcon from '../assets/icons/heart-icon.svg'
 import commentIcon from '../assets/icons/comment-icon.svg'
 import editIcon from '../assets/icons/edit-icon.svg'
 import DeletePost from './deletePost'
+import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
+
+
 
 import '../styles/Card.css'
 
@@ -44,8 +47,14 @@ return(
     <div className="post-card-container">
             <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
             <div className='userProfil-title-container'>
+                <img src={
+                    avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos
+                    : `http://localhost:3000/uploads/${avatar}`}
+                    alt='avatar'
+                    className="user-profil" />
+                
                 {/* <img src={userProfil} alt='user-profil' className="user-profil" /> */}
-                <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profil" />
+                {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profil" /> */}
                 <div className='title-date-container'>
                     <h3 className='card-title'>{post.title}</h3>
                     <p className='date'>{formattedDate}</p>

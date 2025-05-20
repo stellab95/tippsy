@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom'
 import imageCover from '../assets/img/pexels-heftiba-1194420.jpg'
 import UserProfilePicture from '../assets/img/woman-portrait.jpeg'
 import createIcon from '../assets/icons/create-icon.svg'
+import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 
 import '../styles/CreatorProfile.css'
 import { useEffect, useState } from 'react'
 
 function CreatorProfile(){
     const navigate = useNavigate()
-    
+
     const [userId, setUserId] = useState('')
     const [username, setUsername] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -41,8 +42,13 @@ function CreatorProfile(){
     return (
         <>
             <div className='profile-header'>
-            <img src={`http://localhost:3000/uploads/${cover}`} className="image-cover" />
+                <img src={
+                    cover === null || cover === '/vibrant-chaos.jpeg' ? vibrantChaos
+                    : `http://localhost:3000/uploads/${cover}`}
+                    alt='image-cover'
+                    className="image-cover" />
 
+                {/* <img src={`http://localhost:3000/uploads/${cover}`} className="image-cover" /> */}
                 <div className='profile-buttons'>
                         <button className='left-button' type="button" onClick={() => navigate('/createpost')}>
                         <img src={createIcon} className="create-icon" />Créer</button>
@@ -52,7 +58,13 @@ function CreatorProfile(){
                 </div>
 
                 <div className='bio-name'>
-                    <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profile-picture" />
+                    <img src={
+                        avatar === null || avatar === '/vibrant-chaos.jpeg' ? vibrantChaos
+                        : `http://localhost:3000/uploads/${avatar}`}
+                        alt='avatar'
+                        className="user-profile-picture" />
+
+                    {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profile-picture" /> */}
                     <p className='profile-header-username'>{username}</p>
                     <p className='biography'>{biography}</p>
                 </div>
