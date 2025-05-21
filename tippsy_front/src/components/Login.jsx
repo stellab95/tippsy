@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import loginPicture from '../assets/img/creative-artist.jpeg'
 
-
 import '../styles/Login.css'
 
 function Login(){
@@ -11,7 +10,7 @@ function Login(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
 
         try {
@@ -25,10 +24,10 @@ function Login(){
 
             if (response.ok){
                 console.log("Connexion réalisée avec succès !");
-                localStorage.setItem('token', data.token)
-                console.log("Connexion réussie");
+                localStorage.setItem('user', JSON.stringify(data.user))
                 
-                navigate('/creatorprofile')
+                const user = data.user
+                redirectUserByRole(user.roles)
             } else {
                 console.error('Erreur de connexion', data.message)
             }
@@ -42,6 +41,21 @@ function Login(){
 
     }
 
+    const redirectUserByRole = (roles) => {
+        const isMember = roles.includes("member")
+        const isCreator = roles.includes("creator")
+
+        if (isMember && isCreator) {
+            navigate("/")
+        } else if (isCreator) {
+            navigate("/creatorprofile")
+        } else if (isMember) {
+            navigate("/memberprofile")
+        } else {
+            navigate('/unauthorized')
+        }
+    }
+
     return (
         <div className="login-main-container">
             <img src={loginPicture} className="login-picture" />
@@ -50,7 +64,7 @@ function Login(){
                 <p className="slogan">Tip. Support. Repeat.</p>
                 <p className="intro">Le meilleur endroit pour pour créer une communauté avec vos plus grands fans, partager des oeuvres exclusives et transformer votre passion en une entreprise durable.</p>
            
-            <form className="login-container" onSubmit={handleSubmit} encType="multipart/form-data">
+            <form className="login-container" onSubmit={handleLogin} encType="multipart/form-data">
                 <div className="login-input">
                     <input className="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                     <input className="password" type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)}/>

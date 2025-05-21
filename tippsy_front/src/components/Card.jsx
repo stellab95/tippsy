@@ -17,6 +17,7 @@ function Card( { post } ){
 
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
+    const [username, setUsername] = useState('')
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -25,6 +26,7 @@ function Card( { post } ){
             const payload = JSON.parse(atob(token.split('.')[1]))
             const userId = payload.id
             setUserId(userId)
+            setUsername(payload.username)
 
             fetch(`http://localhost:3000/users/${userId}`)
             .then(res => res.json())
@@ -45,18 +47,18 @@ function Card( { post } ){
 console.log(post.image)
 return(
     <div className="post-card-container">
-            <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
             <div className='userProfil-title-container'>
-                <img src={
-                    avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos
-                    : `http://localhost:3000/uploads/${avatar}`}
-                    alt='avatar'
-                    className="user-profil" />
-                
-                {/* <img src={userProfil} alt='user-profil' className="user-profil" /> */}
-                {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profil" /> */}
+                <div className='avatar-username-container'>
+                    <img src={
+                        avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos
+                        : `http://localhost:3000/uploads/${avatar}`}
+                        alt='avatar'
+                        className="user-profil" />
+                    <p className='username-member'>{username}</p>
+                </div>
+                    <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
                 <div className='title-date-container'>
-                    <h3 className='card-title'>{post.title}</h3>
+                    <p className='card-title'>{post.title}</p>
                     <p className='date'>{formattedDate}</p>
                 </div>
             </div>

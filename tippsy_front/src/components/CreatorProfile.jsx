@@ -61,7 +61,7 @@ function CreatorProfile(){
                     <img src={
                         avatar === null || avatar === '/vibrant-chaos.jpeg' ? vibrantChaos
                         : `http://localhost:3000/uploads/${avatar}`}
-                        alt='avatar'
+                        alt=''
                         className="user-profile-picture" />
 
                     {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profile-picture" /> */}

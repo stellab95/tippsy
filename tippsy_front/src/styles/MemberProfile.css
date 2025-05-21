@@ -1,11 +1,12 @@
-
 .main-post-container{
     display: flex;
     height: 100vh;
 }
-.create-post-container{
+.member-cardlist-container{
     width: 100%;
     display: flex;
+    flex-direction: column;
+    margin-left: 50px;
     justify-content: center;
     align-items: center;
     padding: 2rem;

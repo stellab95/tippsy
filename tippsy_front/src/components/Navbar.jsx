@@ -27,7 +27,7 @@ function Navbar(){
             const userId = payload.id
             console.log(payload);
             setUserId(userId)
-            setUsername(payload.username)
+            setUsername(payload.username || username)
 
             fetch(`http://localhost:3000/users/${userId}`)
             .then(res => res.json())
@@ -49,6 +49,8 @@ function Navbar(){
                     throw new Error(`Échec de la déconnexion ${response.status}`)
                 }
                 console.log('Déconnexion réussie');
+                localStorage.removeItem('token')
+
                 navigate('/login')
             } catch (e) {
                 console.error('Erreur lors de la déconnexion :', e.message)
