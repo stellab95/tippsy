@@ -29,7 +29,11 @@ function Navbar(){
             setUserId(userId)
             setUsername(payload.username)
 
-            fetch(`http://localhost:3000/users/${userId}`)
+            fetch(`http://localhost:3000/users/${userId}`, {
+                headers: {
+                     Authorization: `Bearer ${token}`
+                }
+            })
             .then(res => res.json())
             .then(data => {
                 setAvatar(data.avatar)

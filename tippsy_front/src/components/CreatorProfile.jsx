@@ -26,7 +26,11 @@ function CreatorProfile(){
             console.log(payload);
             setUsername(payload.username)
 
-            fetch(`http://localhost:3000/users/${userId}`)
+            fetch(`http://localhost:3000/users/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(res => res.json())
             .then(data => {
                 setAvatar(data.avatar)
@@ -61,7 +65,7 @@ function CreatorProfile(){
                     <img src={
                         avatar === null || avatar === '/vibrant-chaos.jpeg' ? vibrantChaos
                         : `http://localhost:3000/uploads/${avatar}`}
-                        alt='avatar'
+                        alt=''
                         className="user-profile-picture" />
 
                     {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profile-picture" /> */}

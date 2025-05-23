@@ -26,7 +26,11 @@ function Card( { post } ){
             const userId = payload.id
             setUserId(userId)
 
-            fetch(`http://localhost:3000/users/${userId}`)
+            fetch(`http://localhost:3000/users/${userId}`, {
+               headers: {
+                 Authorization: `Bearer ${token}`
+               }
+            })
             .then(res => res.json())
             .then(data => {
                 setAvatar(data.avatar)
@@ -50,7 +54,7 @@ return(
                 <img src={
                     avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos
                     : `http://localhost:3000/uploads/${avatar}`}
-                    alt='avatar'
+                    alt=''
                     className="user-profil" />
                 
                 {/* <img src={userProfil} alt='user-profil' className="user-profil" /> */}
