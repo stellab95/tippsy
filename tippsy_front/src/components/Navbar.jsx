@@ -97,8 +97,6 @@ function Navbar(){
                             alt='avatar'
                             className="user-navbar-picture" />
                     
-                    {/* <a href="#"><img src={userNavbarPicture} alt='user-navbar-picture' className="user-navbar-picture" /></a> */}
-                    {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-navbar-picture" /> */}
                     <div>
                         <p className='nav-username'>{username}</p>
                         <p className='status'>status</p>

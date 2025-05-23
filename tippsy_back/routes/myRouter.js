@@ -5,10 +5,22 @@ import bcrypt from 'bcryptjs'
 import path from 'path';
 import jwt from 'jsonwebtoken'
 import verifyToken from '../middlewares/auth.js';
+import { error } from 'console';
 
 
 const router = express.Router();
 const SECRET_KEY = process.env.JWT_SECRET || 'monsecret';
+
+// const upload = multer({ dest: 'uploads/' });
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ storage })
+
 
 // ROUTES USERS
 router.get('/users', async (req, res) => {
@@ -21,6 +33,30 @@ router.get('/users', async (req, res) => {
   }
 });
 
+router.get('/users/:id', verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params
+    const userId = req.user.id
+    console.log(req.params);
+
+
+    if (parseInt(id) !== userId) {
+      return res.status(403).json({ error: "Accès interdit" })
+    }
+
+    const result = await pool.query('SELECT id, username, avatar, cover, biography FROM users WHERE id = $1', [id])
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" })
+    }
+
+    res.status(200).json(result.rows[0])
+  } catch (error) {
+    console.error("Erreur dans GET/users/:id :", error)
+    res.status(500).json({ error: "Erreur serveur"})
+  }
+})
+
 router.get('/users/:id/posts', verifyToken, async (req, res) => {
   const { id } = req.params
   const userId = req.user.id
@@ -31,7 +67,7 @@ router.get('/users/:id/posts', verifyToken, async (req, res) => {
 
   try {
     const result = await pool.query(
-      `SELECT * FROM posts WHERE user_id = $1`,
+      `SELECT * FROM posts WHERE user_id = $1 ORDER BY created_at DESC `,
       [userId]
     );
       res.status(200).json(result.rows);
@@ -57,7 +93,7 @@ router.post('/users', async (req, res) => {
   }
 });
 
-router.put('/users/:id', async (req, res) => {
+router.put('/users/:id/account', async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const { id } = req.params;
@@ -74,6 +110,33 @@ router.put('/users/:id', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
+router.put('/users/:id', verifyToken, upload.fields([
+  { name: 'avatar', maxCount: 1 },
+  { name: 'cover', maxCount: 1 }
+]), async (req, res) => {
+  try {
+    const { id } = req.params
+    const { biography } = req.body
+
+  const avatarPath = req.files['avatar'] ? req.files['avatar'][0].filename : null    
+  const coverPath = req.files['cover'] ? req.files['cover'][0].filename : null   
+  
+  const result = await pool.query(`
+    UPDATE users
+    SET avatar = COALESCE($1, avatar),
+        cover = COALESCE($2, cover),
+        biography = COALESCE($3, biography)
+        WHERE id = $4
+        RETURNING id, avatar, cover, biography`,
+      [avatarPath, coverPath, biography, id])
+
+      res.status(200).json(result.rows[0])
+  } catch (error) {
+    console.error ('Erreur dans PUT /users/:id', error)
+    res.status(500).json({ error: 'Erreur serveur' })
+  }
+})
 
 router.delete('/users/:id', async (req, res) => {
   try {
@@ -203,16 +266,6 @@ router.delete('/posts/:id', verifyToken, async (req, res) => {
 
 
 // ROUTE UPLOAD
-// const upload = multer({ dest: 'uploads/' });
-const storage = multer.diskStorage({
-  destination: './uploads/',
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname))
-  }
-})
-
-const upload = multer({ storage })
-
 router.post('/upload', upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'Aucun fichier reçu' });
@@ -279,6 +332,18 @@ router.post('/login', async (req, res) => {
     console.error('Erreur lors de la connexion :', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
+});
+
+//ROUTE LOGOUT
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Erreur lors de la déconnexion :', err);
+      return res.status(500).json({ message: 'Erreur lors de la déconnexion' });
+    }
+    res.clearCookie('connect.sid'); 
+    res.status(200).json({ message: 'Déconnexion réussie' });
+    });
 });
 
 // router.get('/protected', verifyToken, (req, res) => {

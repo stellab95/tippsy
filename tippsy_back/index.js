@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config()
-
+import session from 'express-session';
 import path from 'path';
 import cors from 'cors';
 import pool from './db.js'
@@ -13,12 +13,24 @@ import myRouter from './routes/myRouter.js';
 const app = express()
 const port = process.env.PORT || 3000
 
+app.use(session({
+  secret: 'une_chaine_secrete_ici',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
+    }
+}));
+
 app.use(express.json())
 app.use(
   cors(
      {
-     origin: 'http://localhost:5173',
-     methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true,
+      origin: 'http://localhost:5173',
+      methods: ["GET", "POST", "PUT", "DELETE"],
      }
  )); 
 
