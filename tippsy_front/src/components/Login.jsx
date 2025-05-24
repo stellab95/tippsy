@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { data, redirect, useNavigate } from 'react-router-dom';
 import loginPicture from '../assets/img/creative-artist.jpeg'
 
-
 import '../styles/Login.css'
 
 function Login(){
@@ -14,9 +13,9 @@ function Login(){
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const redirectUserByRole = (role) => {
-            const isFan = role.includes("fan")
-            const isCreator = role.includes("creator")
+        const redirectUserByRole = (roles = []) => {
+            const isFan = roles.includes("fan")
+            const isCreator = roles.includes("createur")
 
             if (isFan && isCreator){
                 navigate('/creatorProfile')
@@ -27,16 +26,18 @@ function Login(){
             } else {
                 navigate('/unauthorized')
             }
+            
         }
         
         try {
             const response = await fetch('http://localhost:3000/login', {
-               method: 'POST',
-               headers: { 'Content-Type': 'application/json'},
-               body: JSON.stringify({ email, password })
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify({ email, password })
             })
-
+            
             const data = await response.json()
+            console.log("ROLES REÇUS :", data.user.roles)
 
             if (!response.ok) {
                 throw new Error(data.message || 'Erreur inconnue')
