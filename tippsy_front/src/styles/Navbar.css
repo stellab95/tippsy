@@ -90,4 +90,5 @@ align-items: center;
     margin: 0;
     font-size: 12px;
     margin-left: 8px;
+    text-transform: capitalize;
 }

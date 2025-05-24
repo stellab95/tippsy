@@ -365,21 +365,5 @@ router.post('/login', async (req, res) => {
   }
 });
 
-//ROUTE LOGOUT
-router.post('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error('Erreur lors de la déconnexion :', err);
-      return res.status(500).json({ message: 'Erreur lors de la déconnexion' });
-    }
-    res.clearCookie('connect.sid'); 
-    res.status(200).json({ message: 'Déconnexion réussie' });
-    });
-});
-
-// router.get('/protected', verifyToken, (req, res) => {
-//   res.json({ message: 'Accès autorisé', user: req.user })
-// })
-
 
 export default router;

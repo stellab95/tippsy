@@ -48,20 +48,9 @@ function Navbar(){
     }, [])
 
         const handleLogout = async () => {
-            try {    
-                const response = await fetch('http://localhost:3000/logout', {
-                    method: 'POST',
-                    credentials: 'include',
-                })
-    
-                if (!response.ok) {
-                    throw new Error(`Échec de la déconnexion ${response.roles}`)
-                }
-                console.log('Déconnexion réussie');
-                navigate('/login')
-            } catch (e) {
-                console.error('Erreur lors de la déconnexion :', e.message)
-            }
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            navigate('/login')
         }
     
 
