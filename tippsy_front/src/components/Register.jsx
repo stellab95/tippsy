@@ -79,11 +79,11 @@ function Register(){
                     </div>
 
                     <div className="role-checkboxes">
-                        <label className="member">
+                        <label className="fan">
                             <input
                             type="checkbox"
-                            checked={roles.includes('member')}
-                            onChange={() => handleRoleChange('member')}
+                            checked={roles.includes('fan')}
+                            onChange={() => handleRoleChange('fan')}
                             />
                             Je suis un fan
                         </label>

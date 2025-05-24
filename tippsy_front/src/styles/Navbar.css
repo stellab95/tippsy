@@ -73,7 +73,7 @@ li{
     object-fit: cover;
     border-radius: 50px;
 }
-.user-status{
+.user-role{
 display: flex;
 color: white;
 margin-bottom: 50px;
@@ -86,7 +86,7 @@ align-items: center;
     margin-left: 8px;
 
 }
-.status{
+.role{
     margin: 0;
     font-size: 12px;
     margin-left: 8px;

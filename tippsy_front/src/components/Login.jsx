@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { data, redirect, useNavigate } from 'react-router-dom';
 import loginPicture from '../assets/img/creative-artist.jpeg'
 
 
@@ -14,6 +14,21 @@ function Login(){
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        const redirectUserByRole = (role) => {
+            const isFan = role.includes("fan")
+            const isCreator = role.includes("creator")
+
+            if (isFan && isCreator){
+                navigate('/creatorProfile')
+            } else if (isCreator) {
+                navigate('/creatorProfile')
+            } else if (isFan) {
+                navigate('/memberProfile')
+            } else {
+                navigate('/unauthorized')
+            }
+        }
+        
         try {
             const response = await fetch('http://localhost:3000/login', {
                method: 'POST',
@@ -23,22 +38,28 @@ function Login(){
 
             const data = await response.json()
 
-            if (response.ok){
-                console.log("Connexion réalisée avec succès !");
-                localStorage.setItem('token', data.token)
-                console.log("Connexion réussie");
-                
-                navigate('/creatorprofile')
-            } else {
-                console.error('Erreur de connexion', data.message)
+            if (!response.ok) {
+                throw new Error(data.message || 'Erreur inconnue')
             }
+
+                localStorage.setItem('token', data.token)
+                localStorage.setItem('user', JSON.stringify({
+                id: data.user.id,
+                username: data.user.username,
+                roles: data.user.roles
+            }))
+                console.log("Connexion réalisée avec succès !");
+
+                const user = data.user
+                redirectUserByRole(user.roles)
             
             setEmail('')
             setPassword('')
 
         }catch (error) {
             console.error('Erreur lors de la tentative connexion :', error)
-        }
+        }    
+
 
     }
 

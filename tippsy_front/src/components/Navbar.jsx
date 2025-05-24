@@ -18,18 +18,20 @@ function Navbar(){
     const [username, setUsername] = useState('')
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
+    const [roles, setRoles] = useState([])
 
     useEffect(() => {
         const token = localStorage.getItem('token')
+        const userFromStorage = localStorage.getItem('user')
 
-        if (token) {
-            const payload = JSON.parse(atob(token.split('.')[1]))
-            const userId = payload.id
-            console.log(payload);
-            setUserId(userId)
-            setUsername(payload.username)
+        if (token && userFromStorage) {
+            const user = JSON.parse(userFromStorage)
 
-            fetch(`http://localhost:3000/users/${userId}`, {
+            setUserId(user.id)
+            setUsername(user.username)
+            setRoles(user.roles || [])
+
+            fetch(`http://localhost:3000/users/${user.id}`, {
                 headers: {
                      Authorization: `Bearer ${token}`
                 }
@@ -37,6 +39,9 @@ function Navbar(){
             .then(res => res.json())
             .then(data => {
                 setAvatar(data.avatar)
+                if (data.roles && data.roles.length > 0){
+                    setRoles(data.roles)
+                }
             })
             .catch(err => console.error(err))
         }
@@ -50,7 +55,7 @@ function Navbar(){
                 })
     
                 if (!response.ok) {
-                    throw new Error(`Échec de la déconnexion ${response.status}`)
+                    throw new Error(`Échec de la déconnexion ${response.roles}`)
                 }
                 console.log('Déconnexion réussie');
                 navigate('/login')
@@ -90,16 +95,14 @@ function Navbar(){
                     </ul>
                 </div>
 
-                <div className='user-status'>
-                        <img src={
-                            avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos
-                            : `http://localhost:3000/uploads/${avatar}`}
+                <div className='user-role'>
+                        <img src={ avatar ? `http://localhost:3000/uploads/${avatar}` : vibrantChaos }
                             alt='avatar'
                             className="user-navbar-picture" />
                     
                     <div>
                         <p className='nav-username'>{username}</p>
-                        <p className='status'>status</p>
+                        <p className='role'>{roles}</p>
                     </div>
                 </div>
                     <button type='button' onClick={handleLogout}>Déconnexion</button>

@@ -277,20 +277,35 @@ router.post('/upload', upload.single('image'), (req, res) => {
 //ROUTE REGISTER
 router.post('/register', async (req, res) => {
   console.log('Requête reçue à /register avec :', req.body);
-  const { username, email, password } = req.body;
+  const { username, email, password, roles } = req.body;
   
   try {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    await pool.query(`
+    const userInsert = await pool.query(`
       INSERT INTO users (username, email, password)
-      VALUES ($1, $2, $3)`,
-      [username, email, hashedPassword])
+      VALUES ($1, $2, $3)
+      RETURNING id
+      `, [username, email, hashedPassword])
 
-      console.log('Utilisateur créé avec succès');
+      const userId = userInsert.rows[0].id
+
+      for (const roleName of roles) {
+        const roleResult = await pool.query(
+          `SELECT id FROM roles WHERE name = $1`,
+          [roleName]
+        )
+
+        const roleId = roleResult.rows[0].id
+
+        await pool.query(`
+          INSERT INTO user_roles (user_id, role_id)
+          VALUES ($1, $2)`,
+          [userId, roleId])
+      }
+
       res.status(201).json({ message: 'Utilisateur créé avec succès !' });
-  
     } catch (error) {
     console.error('Erreur dans lors de l\'inscription :', error);
     res.status(500).json({ error: 'Erreur serveur' });
@@ -302,31 +317,47 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   
   try {
-    const result = await pool.query(`
-      SELECT * FROM users
-      WHERE email = $1`,
+    const userResult = await pool.query(`
+      SELECT * FROM users WHERE email = $1`,
       [email]
       )
 
-      if (result.rows.length === 0) {
+      if (userResult.rows.length === 0) {
         return res.status(401).json({ message: 'Utilisateur introuvable' })
       }
       
-    const user = result.rows[0]
+    const user = userResult.rows[0]
 
     const passwordMatch = await bcrypt.compare(password, user.password)
-
     if (!passwordMatch) {
       return res.status(401).json( { message: 'Mot de passe incnorect'})
     }
 
+    const rolesResult = await pool.query(`
+      SELECT r.name FROM user_roles ur
+      JOIN roles r ON ur.role_id = r.id
+      WHERE ur.user_id = $1
+      `, [user.id])
+
+      const roles = rolesResult.rows.map(r => r.name)
+
     const token = jwt.sign(
-      { id: user.id, username: user.username, email: user.email },
+      { id: user.id,
+        username: user.username,
+        email: user.email,
+        roles: roles },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     )
 
-    res.status(201).json({message: 'Utilisateur connecté avec succès !', token, user});
+    res.status(200).json({message: 'Utilisateur connecté avec succès !',
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        roles: roles
+      }
+    });
   
   } catch (error) {
     console.error('Erreur lors de la connexion :', error);

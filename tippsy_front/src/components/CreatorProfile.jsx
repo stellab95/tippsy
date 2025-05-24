@@ -17,16 +17,17 @@ function CreatorProfile(){
     const [biography, setBiography] = useState('')
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token')
+    const userFromStorage = localStorage.getItem('user')
 
-        if (token) {
-            const payload = JSON.parse(atob(token.split('.')[1]))
-            const userId = payload.id
-            setUserId(userId)
-            console.log(payload);
-            setUsername(payload.username)
+    try {
+        if (token && userFromStorage) {
+            const user = JSON.parse(userFromStorage)
 
-            fetch(`http://localhost:3000/users/${userId}`, {
+            setUserId(user.id)
+            setUsername(user.username)
+
+            fetch(`http://localhost:3000/users/${user.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -35,20 +36,20 @@ function CreatorProfile(){
             .then(data => {
                 setAvatar(data.avatar)
                 setCover(data.cover)
-                setBiography(data.biography)
-                setUsername(data.username)
+                setBiography(data.biography)            
             })
             .catch(err => console.error(err))
-            
         }
-    }, [])
+    } catch (error) {
+        console.error("Erreur lors du parsing de l'utilisateur depuis localStorage :", error)
+    }
+}, [])
+
 
     return (
         <>
             <div className='profile-header'>
-                <img src={
-                    cover === null || cover === '/vibrant-chaos.jpeg' ? vibrantChaos
-                    : `http://localhost:3000/uploads/${cover}`}
+                <img src={ cover ? `http://localhost:3000/uploads/${cover}` : vibrantChaos }
                     alt='image-cover'
                     className="image-cover" />
 
@@ -62,9 +63,7 @@ function CreatorProfile(){
                 </div>
 
                 <div className='bio-name'>
-                    <img src={
-                        avatar === null || avatar === '/vibrant-chaos.jpeg' ? vibrantChaos
-                        : `http://localhost:3000/uploads/${avatar}`}
+                    <img src={ avatar ? `http://localhost:3000/uploads/${avatar}` : vibrantChaos }
                         alt=''
                         className="user-profile-picture" />
 
