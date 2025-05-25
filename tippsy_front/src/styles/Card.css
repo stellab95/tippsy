@@ -17,6 +17,9 @@
     object-fit: cover;
     border-radius: 5px;
 }
+.username-member{
+    font-weight: 600;
+}
 .user-profil{
     width: 50px;
     height: 50px;
@@ -24,16 +27,18 @@
     margin-right: 10px;
     border-radius: 50%;
 }
-.userProfil-title-container{
-display: flex;
-margin-top: 15px;
+.avatar-username-container{
+    display: flex;
+    margin: 10px 0 10px 0;
 }
 .card-title{
-    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 0;
 }
 .date{
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
 }
 .title-date-container{
     display: flex;
@@ -42,7 +47,6 @@ margin-top: 15px;
 .text-post{
     width: 645px;
     font-size: 14px;
-    margin-left: 60px;
     text-align: justify;
 }
 .text-container{
