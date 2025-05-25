@@ -7,66 +7,37 @@ import Login from './components/Login';
 import Register from './components/Register';
 import DeletePost from './components/deletePost';
 import ProfileEdit from './components/ProfileEdit';
-import CreatorProfile from './components/CreatorProfile';
 import MemberProfile from './components/MemberProfile';
+import Unauthorized from './components/Unauthorized';
+import RequireAuth from './components/RequireAuth';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: < HomePage />
-  },
-  {
-    path: '/posts/:id/edit',
-    element: <PostEditPage />
-  },
-  {
-    path: '/createpost',
-    element: <CreatePostPage />
-  },
-  {
-  path: '/register',
-  element: <Register />
-  },
-  {
-  path: '/login',
-  element: <Login />
-  },
-  {
-  path: '/creatorprofile',
-  element: <CreatorProfilePage />
-  },
-  {
-    path: '/posts/:id/delete',
-    element: <DeletePost />
-  },
-  {
-    path: '/profileedit/:id',
-    element: <ProfileEdit />
-  },
-  {path: '/memberprofile',
-  element: <MemberProfile />
-  }
+  { path: '/', element: <HomePage /> },
+  { path: '/login', element: <Login /> },
+  { path: '/register', element: <Register /> },
+  { path: '/unauthorized', element: <Unauthorized /> },
 
+  {
+    element: <RequireAuth allowedRoles={['createur']} />,
+    children: [
+      { path: '/creatorprofile', element: <CreatorProfilePage /> },
+      { path: '/createpost', element: <CreatePostPage /> },
+      { path: '/posts/:id/edit', element: <PostEditPage /> },
+      { path: '/posts/:id/delete', element: <DeletePost /> },
+      { path: '/profileedit/:id', element: <ProfileEdit /> },
+    ]
+  },
 
-])
+  {
+    element: <RequireAuth allowedRoles={['fan']} />,
+    children: [
+      { path: '/memberprofile', element: <MemberProfile /> }
+    ]
+  },
+]);
 
 function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 
-export default App
-
-
-
-
-
-// function App() {
-//   return (
-//     <>
-//       < PostCard />
-//       < TestCardList />
-//     </>
-//   )
-// }
-
-// export default App
+export default App;
