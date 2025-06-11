@@ -1,13 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import imageCover from '../assets/img/pexels-heftiba-1194420.jpg'
-import UserProfilePicture from '../assets/img/woman-portrait.jpeg'
 import createIcon from '../assets/icons/create-icon.svg'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 
 import '../styles/CreatorProfile.css'
 import { useEffect, useState } from 'react'
 
-function CreatorProfile(){
+function CreatorProfile({ isOwner = true }){
     const navigate = useNavigate()
 
     const [userId, setUserId] = useState('')
@@ -27,7 +25,7 @@ function CreatorProfile(){
             setUserId(user.id)
             setUsername(user.username)
 
-            fetch(`http://localhost:3000/users/${user.id}`, {
+            fetch(`http://localhost:3000/users/me`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -53,28 +51,30 @@ function CreatorProfile(){
                     alt='image-cover'
                     className="image-cover" />
 
-                {/* <img src={`http://localhost:3000/uploads/${cover}`} className="image-cover" /> */}
-                <div className='profile-buttons'>
+                {isOwner && (
+                    <div className='profile-buttons'>
                         <button className='left-button' type="button" onClick={() => navigate('/createpost')}>
                         <img src={createIcon} className="create-icon" />Créer</button>
                         
                         <button className='right-button' type="button" onClick={() => navigate(`/profileedit/${userId}`)}>
                         <img src={createIcon} className="create-icon" />Modifier la page</button>
-                </div>
+                    </div>
+                )}
 
                 <div className='bio-name'>
                     <img src={ avatar ? `http://localhost:3000/uploads/${avatar}` : vibrantChaos }
                         alt=''
                         className="user-profile-picture" />
 
-                    {/* <img src={`http://localhost:3000/uploads/${avatar}`} className="user-profile-picture" /> */}
                     <p className='profile-header-username'>{username}</p>
                     <p className='biography'>{biography}</p>
                 </div>
-
-                <div className='title-lasts-posts'>
-                    <h1 className="lasts-posts">Mes dernières publications</h1>
-                </div>
+                <div className='border-bottom'></div>
+                {isOwner && (
+                    <div className='title-lasts-posts'>
+                        <h1 className="lasts-posts">Mes dernières publications</h1>
+                    </div>
+                )}
             </div>
         </>
     )

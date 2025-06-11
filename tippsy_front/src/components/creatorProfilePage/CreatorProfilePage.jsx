@@ -14,7 +14,7 @@ function CreatorProfilePage(){
             <div className="main-container">
                 <div className="profile-cardlist-container">
                     <div className="images-container">
-                        <CreatorProfile />
+                        <CreatorProfile isOwner={true}/>
                     </div>
                     <div className="cardList-container">
                     <CardList />

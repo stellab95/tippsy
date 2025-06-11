@@ -147,7 +147,7 @@ body{
 .slide-track {
     display: flex;
     width: fit-content;
-    animation: scroll 20s linear infinite;
+    animation: scroll 30s linear infinite;
 }
 .slide {
     position: relative;
@@ -157,7 +157,7 @@ body{
     width: 350px;
     height: 350px;
     object-fit: cover;
-    border-radius: 8px;    
+    border-radius: 6px;    
 }
 
 /* Animation */

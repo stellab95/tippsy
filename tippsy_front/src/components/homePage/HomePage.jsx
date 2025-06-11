@@ -1,54 +1,69 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useEffect } from 'react'
+
+import '../../styles/HomePage.css'
 
 import joyfulArtist from '../../assets/img/joyful-artist.jpeg'
-import artistMuse from '../../assets/img/artist-muse.jpeg'
-import workingArtist from '../../assets/img/working-artist.jpeg'
-import podcaster from '../../assets/img/podcaster.jpeg'
-import artistStudio from '../../assets/img/artist-studio.jpeg'
 import colorfulGallery from '../../assets/img/colorful-gallery.jpeg'
 import facebook from '../../assets/icons/facebook.png'
 import instagram from '../../assets/icons/instagram.png'
 import pinterest from '../../assets/icons/pinterest.png'
 import loupe from '../../assets/icons/loupe.png'
 
-const images = [
-    {
-      src: artistMuse,
-      alt: "Image 1",
-      name: "Rachel Maksy",
-      link: "#",
-    },
-    {
-      src: workingArtist,
-      alt: "Image 2",
-      name: "Tina Chantarangsu",
-      link: "#",
-    },
-    {
-      src: podcaster,
-      alt: "Image 3",
-      name: "Joe Novah",
-      link: "#",
-    },
-    {
-      src: artistStudio,
-      alt: "Image 4",
-      name: "RosaDraws",
-      link: "#",
-    },
-  ];
-
-import '../../styles/HomePage.css'
-
 function HomePage(){
     const navigate = useNavigate()
 
-    const repeatedImages = [...images, ...images];
+    const [users, setUsers] = useState([])
+    const [userId, setUserId] = useState('')
+    const [avatar, setAvatar] = useState('')
+    const [username, setUsername] = useState('')
+    
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const userFromStorage = localStorage.getItem('user')
+
+   try {
+
+    if (token && userFromStorage) {
+        const user = JSON.parse(userFromStorage)
+
+        setUserId(user.id)
+
+        fetch(`http://localhost:3000/users/${user.id}`, {
+               method: 'GET',
+               headers: {
+                    'Authorization': `Bearer ${token}`
+               },
+           })
+           .then(res => res.json())
+           .then(data => {
+            setAvatar(data.avatar)
+            setUsername(data.username)
+           })
+           .catch(err => console.error(err))
+        }
+   } catch (error) {
+    console.error("Erreur lors du parsing de l'utilisateur depuis le local :", error)
+   }    
+}, [])
+
+useEffect(() => {
+        fetch('http://localhost:3000/users')
+        .then(res => res.json())
+        .then(data => {
+            setUsers(data)
+            console.log("response data =", data);
+        })
+    .catch(err => console.error('Erreur lors du chargement des utilisateurs :', err))
+}, [])
+
+
 
     return (
         <>
         <div className='home-navbar-container '>
-            <div className="home-navbar-content wrapper">
+            <nav className="home-navbar-content wrapper">
                 <a href="#" className='home-logo'>tippsy</a>
                 <ul className="home-navbar-content">
                     <li>
@@ -69,7 +84,7 @@ function HomePage(){
                     </div>
                 </div>
                 
-            </div>
+            </nav>
         </div>
         <div className='home-img-container'>
             <img src={joyfulArtist} alt='joyful-artist' className="joyful-artist" />
@@ -82,18 +97,31 @@ function HomePage(){
                 <button className='start-button'>Commencez à créer avec Tippsy</button>
             </div>
         </div>
+        
         <div className="slider">
             <div className="slide-track">
-                {repeatedImages.map((img, index) => (
-                    <div className="slide" key={index}>
-                        <img className="slide-item" src={img.src} alt={img.alt} />
-                        <a href={img.link} className="caption">
-                        {img.name}
-                        </a>
+                {users.map((user) => (
+                    <div className="slide" key={user.id}>
+                        <Link to={`/users/${user.id}`}>
+                        <img className="slide-item" src={`http://localhost:3000/uploads/${user.avatar}`} alt={user.username} />
+                        <p className="caption">{user.username}</p>
+                        </Link>
+                    </div>
+                ))}
+
+        {/* boucle infinie */}
+                {users.map((user) => (
+                    <div className="slide" key={user.id}>
+                        <Link to={`/users/${user.id}`}>
+                        <img className="slide-item" src={`http://localhost:3000/uploads/${user.avatar}`} alt={user.username} />
+                        <p className="caption">{user.username}</p>
+                        </Link>
                     </div>
                 ))}
              </div>
         </div>
+
+
         <div>
         </div>
 

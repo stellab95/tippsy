@@ -90,8 +90,8 @@ function Register(){
                         <label className="creator">
                             <input
                             type="checkbox"
-                            checked={roles.includes('creator')}
-                            onChange={() => handleRoleChange('creator')}
+                            checked={roles.includes('createur')}
+                            onChange={() => handleRoleChange('createur')}
                             />
                             Je suis un créateur (ou les deux 😉)
                         </label>

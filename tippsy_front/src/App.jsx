@@ -10,11 +10,13 @@ import ProfileEdit from './components/ProfileEdit';
 import MemberProfile from './components/MemberProfile';
 import Unauthorized from './components/Unauthorized';
 import RequireAuth from './components/RequireAuth';
+import UserProfilePage from './components/userProfilePage/UserProfilePage';
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
+  { path: '/users/:id', element: <UserProfilePage /> },
   { path: '/unauthorized', element: <Unauthorized /> },
 
   {
