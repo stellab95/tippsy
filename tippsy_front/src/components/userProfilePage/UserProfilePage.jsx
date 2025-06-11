@@ -6,17 +6,17 @@ import '../../styles/UserProfilePage.css'
 
 
 function UserProfilePage(){
-
+    const { id } = useParams()
 
     return (
             <div className="main-container">
                 <div className="profile-cardlist-container">
                     <div className="images-container">
-                        <CreatorProfile isOwner={false}/>
+                        <CreatorProfile isOwner={false} userId={id}/>
                     </div>
                     <div className="cardList-container">
                     <h1 className="last-posts-title">Publications récentes</h1>
-                    <CardList isOwner={false}/>
+                    <CardList isOwner={false} userId={id}/>
                 </div>
             </div>
         </div>

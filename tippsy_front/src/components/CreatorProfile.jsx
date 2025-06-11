@@ -5,7 +5,7 @@ import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 import '../styles/CreatorProfile.css'
 import { useEffect, useState } from 'react'
 
-function CreatorProfile({ isOwner = true }){
+function CreatorProfile({ userId: propUserId,  isOwner = true }){
     const navigate = useNavigate()
 
     const [userId, setUserId] = useState('')
@@ -15,33 +15,48 @@ function CreatorProfile({ isOwner = true }){
     const [biography, setBiography] = useState('')
 
     useEffect(() => {
-    const token = localStorage.getItem('token')
-    const userFromStorage = localStorage.getItem('user')
+    const token = localStorage.getItem('token');
 
-    try {
-        if (token && userFromStorage) {
-            const user = JSON.parse(userFromStorage)
+    const fetchProfileData = async () => {
+        try {
+            let userIdToFetch;
+            let url;
 
-            setUserId(user.id)
-            setUsername(user.username)
+            if (isOwner) {
+                // Utilisateur connecté
+                const userFromStorage = localStorage.getItem('user');
+                if (!token || !userFromStorage) return;
+                
+                const user = JSON.parse(userFromStorage);
+                setUserId(user.id);
+                setUsername(user.username);
+                
+                url = `http://localhost:3000/users/me`;
+            } else {
+                // Visiteur sur le profil d’un créateur
+                if (!propUserId) return;
+                setUserId(propUserId);
+                url = `http://localhost:3000/users/${propUserId}`;
+            }
 
-            fetch(`http://localhost:3000/users/me`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                setAvatar(data.avatar)
-                setCover(data.cover)
-                setBiography(data.biography)            
-            })
-            .catch(err => console.error(err))
+            const res = await fetch(url, {
+                headers: token ? { Authorization: `Bearer ${token}` } : {},
+            });
+            const data = await res.json();
+
+            setAvatar(data.avatar);
+            setCover(data.cover);
+            setBiography(data.biography);
+            if (!isOwner) setUsername(data.username); // à ne pas écraser pour le user connecté
+
+        } catch (error) {
+            console.error("Erreur lors du fetch des données de profil :", error);
         }
-    } catch (error) {
-        console.error("Erreur lors du parsing de l'utilisateur depuis localStorage :", error)
-    }
-}, [])
+    };
+
+    fetchProfileData();
+}, [isOwner, propUserId]);
+
 
 
     return (

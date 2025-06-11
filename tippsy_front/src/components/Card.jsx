@@ -12,7 +12,6 @@ import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 import '../styles/Card.css'
 
 function Card( { post, isOwner = true } ){
-    const navigate = useNavigate();
 
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -59,8 +58,8 @@ return(
     <div className="post-card-container">
         <div className='userProfil-title-container'>
             <div className='avatar-username-container'>
-                <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `http://localhost:3000/uploads/${avatar}`} alt='' className="user-profil" />
-                <p className='username-member'>{username}</p>
+                <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `http://localhost:3000/uploads/${post.avatar}`} alt='' className="user-profil" />
+                <p className='username-member'>{post.username}</p>
             </div>
             <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
                 <div className='title-date-container'>
