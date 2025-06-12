@@ -25,7 +25,7 @@ const upload = multer({ storage })
 // ROUTES USERS
 router.get('/users', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM users');
+    const result = await pool.query('SELECT * FROM users ORDER BY id DESC LIMIT 4');
     res.status(200).json(result.rows);
   } catch (error) {
     console.error('Erreur dans /users :', error);
@@ -33,49 +33,66 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.get('/users/:id', verifyToken, async (req, res) => {
+router.get('/users/me', verifyToken, async (req, res) => {
   try {
-    const { id } = req.params
-    const userId = req.user.id
-    console.log(req.params);
+    const userId = req.user.id;
 
+    const result = await pool.query(
+      'SELECT id, username, avatar, cover, biography FROM users WHERE id = $1',
+      [userId]
+    );
 
-    if (parseInt(id) !== userId) {
-      return res.status(403).json({ error: "Accès interdit" })
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
 
-    const result = await pool.query('SELECT id, username, avatar, cover, biography FROM users WHERE id = $1', [id])
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("Erreur dans GET /users/me :", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
 
+router.get('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const result = await pool.query('SELECT id, username, avatar, cover, biography FROM users WHERE id = $1', [id])
+  
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Utilisateur non trouvé" })
     }
 
     res.status(200).json(result.rows[0])
   } catch (error) {
-    console.error("Erreur dans GET/users/:id :", error)
+    console.error("Erreur dans GET/users/:id", error)
     res.status(500).json({ error: "Erreur serveur"})
   }
 })
 
-router.get('/users/:id/posts', verifyToken, async (req, res) => {
-  const { id } = req.params
-  const userId = req.user.id
+router.get('/users/:id/posts', async (req, res) => {
+  const { id } = req.params;
 
-  if (parseInt(id) !== userId) {
-    return res.status(403).json({ error: 'Accès refusé' })
+  const targetUserId = parseInt(id, 10);
+  if (isNaN(targetUserId)) {
+    return res.status(400).json({ error: 'ID invalide' });
   }
 
   try {
     const result = await pool.query(
-      `SELECT * FROM posts WHERE user_id = $1 ORDER BY created_at DESC `,
-      [userId]
+      `SELECT posts.*, users.username, users.avatar
+        FROM posts
+        JOIN users ON posts.user_id = users.id
+        WHERE posts.user_id = $1
+        ORDER BY posts.created_at DESC`,
+      [targetUserId]
     );
-      res.status(200).json(result.rows);
+
+    res.status(200).json(result.rows);
   } catch (error) {
     console.error('Erreur dans /users/:id/posts :', error);
-    res.status(500).json({ error: 'Erreur serveur' })
+    res.status(500).json({ error: 'Erreur serveur' });
   }
-})
+});
 
 router.post('/users', async (req, res) => {
   try {
@@ -121,7 +138,9 @@ router.put('/users/:id', verifyToken, upload.fields([
 
   const avatarPath = req.files['avatar'] ? req.files['avatar'][0].filename : null    
   const coverPath = req.files['cover'] ? req.files['cover'][0].filename : null   
-  
+  console.log("FILES REÇUS :", req.files)
+console.log("BODY :", req.body)
+
   const result = await pool.query(`
     UPDATE users
     SET avatar = COALESCE($1, avatar),

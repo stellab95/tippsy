@@ -34,7 +34,7 @@ function ProfileEdit() {
                     method: 'GET',
                     headers: {
                     'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                     }
                 })
 
@@ -107,7 +107,10 @@ function ProfileEdit() {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div>
                         <label htmlFor="avatar" className='profile-picture-title'>Photo de profil</label>
-                        <input type="file" id="avatar" accept="image/*" onChange={(e) => setAvatar(e.target.files[0])}/>
+                        <input type="file" id="avatar" accept="image/*" onChange={(e) => {
+    const file = e.target.files[0]
+    if (file) setAvatar(file)
+  }}/>
                 </div>
                 <div>
                         <label htmlFor="cover" className='change-cover-user-profile'>Photo de couverture</label>

@@ -43,6 +43,7 @@ function CreatorProfile({ userId: propUserId,  isOwner = true }){
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
             });
             const data = await res.json();
+            
 
             setAvatar(data.avatar);
             setCover(data.cover);

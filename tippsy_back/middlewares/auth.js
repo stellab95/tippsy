@@ -7,6 +7,8 @@ const verifyToken = (req, res, next) => {
     console.log('Requête entrante avec Authorization:', authHeader);
 
     if (!token) {
+        console.log('Pas de token fourni');
+        
         return res.status(401).json({ message: 'Token manquant' })
     }
 
