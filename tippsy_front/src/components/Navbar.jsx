@@ -5,9 +5,8 @@ import homeIcon from '../assets/icons/home-icon.svg'
 import usersIcon from '../assets/icons/users-icon.svg'
 import magnifyIcon from '../assets/icons/magnify-icon.svg'
 import settingsIcon from '../assets/icons/settings-icon.svg'
-import userNavbarPicture from '../assets/img/woman-portrait.jpeg'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
-
+import { TbLayoutSidebarLeftCollapse , TbLayoutSidebarRightCollapse } from "react-icons/tb";
 
 
 import '../styles/Navbar.css'
@@ -15,10 +14,15 @@ import '../styles/Navbar.css'
 function Navbar(){
     const navigate = useNavigate()
 
+    const [isOpen, setIsOpen] = useState(false)
     const [username, setUsername] = useState('')
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
     const [roles, setRoles] = useState([])
+
+    const toggleNavBar = () => {
+        setIsOpen(!isOpen)
+    }
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -54,50 +58,74 @@ function Navbar(){
         }
     
 
-    return (
-        <div className='main-container'>
-            <div className='navbar-container'>
-                <div className="navbar-content">
-                    <Link to={'/'} className='logo'>tippsy</Link>
-                    <p className='dashboard'>Tableau de bord</p>
-                    <ul className='links-container'>
-                        <li>
-                            <a href="#"><img src={homeIcon} alt='home-icon' className="home-icon" /></a>
-                            <Link to={'/'}>Accueil</Link>
-                        </li>
-                        <li>
-                            <a href="#"><img src={magnifyIcon} alt='magnify-icon' className="magnify-icon" /></a>
-                            <a href="#">Parcourir</a>
-                        </li>
-                        <li>
-                            <a href="#"><img src={bellIcon} alt='bell-icon' className="bell-icon" /></a>
-                            <a href="#">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="#"><img src={usersIcon} alt='users-icon' className="users-icon" /></a>
-                            <a href="#">Abonnements</a>
-                        </li>
-                        <li>
-                            <a href="#"><img src={settingsIcon} alt='settings-icon' className="settings-icon" /></a>
-                            <a href="#">Paramètres</a>
-                        </li>
-                    </ul>
-                </div>
+return (
+  <div className={`navbar-container ${isOpen ? 'open' : 'closed'}`}>
+    
+    {/* Partie du haut */}
+    <div className='navbar-upper'>
+      <div className='navbar-top'>
+        {isOpen && (
+        <Link to='/' className='logo'>Tippsy</Link>
+        )}
+        <button className='toggle-btn' onClick={toggleNavBar}>
+        {isOpen ? <TbLayoutSidebarLeftCollapse /> : <TbLayoutSidebarRightCollapse />}
+        </button>
+      </div>
 
-                <div className='user-role'>
-                        <img src={ avatar ? `http://localhost:3000/uploads/${avatar}` : vibrantChaos }
-                            alt='avatar'
-                            className="user-navbar-picture" />
-                    
-                    <div>
-                        <p className='nav-username'>{username}</p>
-                        <p className='role'>{roles}</p>
-                    </div>
-                </div>
-                    <button type='button' onClick={handleLogout}>Déconnexion</button>
-            </div>
+      <div className='main-container'>
+        <div className='navbar-content'>
+          <ul className='links-container'>
+            <li className="nav-item">
+            <Link to="/"><img src={homeIcon} alt="home" className="icon" />
+                {isOpen && <span className="link-text">Accueil</span>}</Link>
+            {!isOpen && <span className="tooltip">Accueil</span>}
+            </li>
+            <li className="nav-item">
+              <Link to="/"><img src={magnifyIcon} alt='magnify-icon' className="magnify-icon" />
+                {isOpen && <span>Parcourir</span>}</Link>
+             {!isOpen && <span className="tooltip">Parcourir</span>}
+            </li>
+            <li className="nav-item">
+              <Link to="/"><img src={bellIcon} alt='bell-icon' className="bell-icon" />
+                {isOpen && <span>Notifications</span>}</Link>
+            {!isOpen && <span className="tooltip">Notifications</span>}
+            </li>
+            <li className="nav-item">
+              <Link to="/"><img src={usersIcon} alt='users-icon' className="users-icon" />
+              {isOpen && <span>Abonnements</span>}</Link>
+            {!isOpen && <span className="tooltip">Abonnements</span>}
+            </li>
+            <li className="nav-item">
+              <Link to="/"><img src={settingsIcon} alt='settings-icon' className="settings-icon" />
+                {isOpen && <span>Paramètres</span>}</Link>
+            {!isOpen && <span className="tooltip">Paramètres</span>}
+            </li>
+          </ul>
         </div>
-    )
+      </div>
+    </div>
+
+    <div className='navbar-lower'>
+      <div className='user-role nav-item'>
+        <img
+          src={avatar ? `http://localhost:3000/uploads/${avatar}` : vibrantChaos}
+          alt='avatar'
+          className="user-navbar-picture"
+        />
+        {isOpen && (
+          <div>
+            <p className='nav-username'>{username}</p>
+            <p className='role'>{roles}</p>
+          </div>
+        )}
+      </div>
+      {isOpen && (
+        <button type='button' onClick={handleLogout}>Déconnexion</button>
+      )}
+    </div>
+
+  </div>
+);
 }
 
 

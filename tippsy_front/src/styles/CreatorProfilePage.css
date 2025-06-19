@@ -5,7 +5,7 @@ body, html {
 .main-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 }
 .profile-cardlist-container{
     flex: 1;
