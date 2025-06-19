@@ -5,7 +5,7 @@ import userProfil from '../assets/img/woman-portrait.jpeg'
 import heartIcon from '../assets/icons/heart-icon.svg'
 import commentIcon from '../assets/icons/comment-icon.svg'
 import editIcon from '../assets/icons/edit-icon.svg'
-import DeletePost from './deletePost'
+import DeletePost from './DeletePost'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 
 
