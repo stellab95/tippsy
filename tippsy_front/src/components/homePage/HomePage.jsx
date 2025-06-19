@@ -62,18 +62,18 @@ useEffect(() => {
 
     return (
         <>
-        <div className='home-navbar-container '>
+        <div className='home-navbar-container'>
             <nav className="home-navbar-content wrapper">
-                <a href="#" className='home-logo'>tippsy</a>
+                <Link to="/" className='home-logo'>tippsy</Link>
                 <ul className="home-navbar-content">
                     <li>
-                        <a href="#" style={{marginRight: 15}}>Accueil</a>
+                        <Link to="/" style={{marginRight: 15}}>Accueil</Link>
                     </li>
                     <li>
-                        <a href="#" style={{marginRight: 15}}>Créateurs</a>
+                        <Link to="/" style={{marginRight: 15}}>Créateurs</Link>
                     </li>
                     <li>
-                        <a href="#">Fonctionnalités</a>
+                        <Link to="/">Fonctionnalités</Link>
                     </li>
                 </ul>
 

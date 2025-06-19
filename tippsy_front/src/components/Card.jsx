@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
-import userProfil from '../assets/img/woman-portrait.jpeg'
 import heartIcon from '../assets/icons/heart-icon.svg'
 import commentIcon from '../assets/icons/comment-icon.svg'
 import editIcon from '../assets/icons/edit-icon.svg'
