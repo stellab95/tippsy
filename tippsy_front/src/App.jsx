@@ -5,7 +5,7 @@ import CreatePostPage from './components/createPostPage/CreatePostPage';
 import PostEditPage from './components/postEditPage/PostEditPage';
 import Login from './components/Login';
 import Register from './components/Register';
-import DeletePost from './components/deletePost';
+import DeletePost from './components/DeletePost';
 import ProfileEdit from './components/ProfileEdit';
 import MemberProfile from './components/MemberProfile';
 import Unauthorized from './components/Unauthorized';
