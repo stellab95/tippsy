@@ -10,7 +10,7 @@ import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 
 import '../styles/Card.css'
 
-function Card( { post, isOwner = true } ){
+function Card( { post, isOwner = true, onDeleteSuccess } ){
 
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -85,7 +85,7 @@ return(
                 {isOwner && (
                 <div className='delete-edit-container'>
                     <div className='trash-card'>
-                        <DeletePost id={post.id} />
+                        <DeletePost id={post.id} onDeleteSuccess={onDeleteSuccess}/>
                     </div>
                     <div className='comment-container'>
                         <Link to={`/posts/${post.id}/edit`}>

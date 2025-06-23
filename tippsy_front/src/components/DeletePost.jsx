@@ -5,7 +5,7 @@ import trashIcon from '../assets/icons/trash-icon.svg'
 
 import '../styles/DeletePost.css'
 
-function DeletePost({ id }){
+function DeletePost({ id, onDeleteSuccess }){
     const navigate = useNavigate()
     console.log("ID récupéré depuis l'URL :", id);
 
@@ -28,8 +28,10 @@ try {
     if (response.ok){
         const data = await response.json()
         console.log(('Post supprimé', data));
-        //navigate('/creatorprofile')
-        window.location.reload()
+
+        if (onDeleteSuccess) {
+            onDeleteSuccess(id)
+        }
     } else {
         console.error('Erreur lors de la suppression')
     }

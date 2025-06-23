@@ -41,10 +41,14 @@ function CardList({ userId, isOwner = true }) {
         fetchData();
     }, [userId]);
 
+    const handleDeleteSuccess = (deleteId) => {
+        setPosts((prevPosts) => prevPosts.filter(post => post.id !== deleteId))
+    }
+
     return (
         <div>
             {posts.map((post) => (
-                <Card key={post.id} post={post} isOwner={isOwner} />
+                <Card key={post.id} post={post} isOwner={isOwner} onDeleteSuccess={handleDeleteSuccess} />
             ))}
         </div>
     );
