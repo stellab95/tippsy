@@ -46,7 +46,11 @@ app.get('/', (req, res) => {
 // Sert les fichiers statiques depuis "public"
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(myRouter);
-app.use('/uploads', express.static('uploads')) 
+app.use('/uploads', express.static('uploads'))
+app.use((req, res) => {
+  res.status(404).send(`Route non trouvée : ${req.method} ${req.originalUrl}`);
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -22,8 +22,7 @@ try {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-        },
-        credentials: 'include',
+        }
     })
 
     if (response.ok){
@@ -41,9 +40,9 @@ try {
 }
 
     return (
-        <form onSubmit={handleDelete}>
-            <button className="trash-icon" type='submit'><img src={trashIcon} alt='trash-icon' className='trash-img'/></button>
-        </form>
+        <button className="trash-icon" onClick={handleDelete}>
+            <img src={trashIcon} alt="trash-icon" className="trash-img" />
+        </button>
     )
 }
 
