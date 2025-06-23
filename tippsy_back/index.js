@@ -38,14 +38,14 @@ app.use(
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+app.get('/', (req, res) => {
+  res.send('Bienvenue sur Tippsy ! 🎨');
+});
+
 // Sert les fichiers statiques depuis "public"
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(myRouter);
 app.use('/uploads', express.static('uploads')) 
-
-app.get('/', (req, res) => {
-  res.send('Bienvenue sur Tippsy ! 🎨');
-});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
