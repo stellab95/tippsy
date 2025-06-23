@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { BACKEND_URL } from '../config.js'
 
 import Card from './Card'
 import '../styles/MemberProfile.css'
@@ -21,7 +22,7 @@ function MemberProfile(){
         const userId = payload.id
 
         try {
-            const response = await fetch(`http://localhost:3000/posts`, {
+            const response = await fetch(`${BACKEND_URL}/posts`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

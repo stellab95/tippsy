@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { BACKEND_URL } from '../config.js'
+
 import bellIcon from '../assets/icons/bell-icon.svg'
 import homeIcon from '../assets/icons/home-icon.svg'
 import usersIcon from '../assets/icons/users-icon.svg'
@@ -35,7 +37,7 @@ function Navbar(){
             setUsername(user.username)
             setRoles(user.roles || [])
 
-            fetch(`http://localhost:3000/users/${user.id}`, {
+            fetch(`${BACKEND_URL}/users/${user.id}`, {
                 headers: {
                      Authorization: `Bearer ${token}`
                 }
@@ -108,7 +110,7 @@ return (
     <div className='navbar-lower'>
       <div className='user-role nav-item'>
         <img
-          src={avatar ? `http://localhost:3000/uploads/${avatar}` : vibrantChaos}
+          src={avatar ? `${BACKEND_URL}/uploads/${avatar}` : vibrantChaos}
           alt='avatar'
           className="user-navbar-picture"
         />

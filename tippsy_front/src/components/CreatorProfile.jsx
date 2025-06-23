@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom'
+import { BACKEND_URL } from '../config.js'
+
 import createIcon from '../assets/icons/create-icon.svg'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 
@@ -31,12 +33,12 @@ function CreatorProfile({ userId: propUserId,  isOwner = true }){
                 setUserId(user.id);
                 setUsername(user.username);
                 
-                url = `http://localhost:3000/users/me`;
+                url = `${BACKEND_URL}/users/me`;
             } else {
                 // Visiteur sur le profil d’un créateur
                 if (!propUserId) return;
                 setUserId(propUserId);
-                url = `http://localhost:3000/users/${propUserId}`;
+                url = `${BACKEND_URL}/users/${propUserId}`;
             }
 
             const res = await fetch(url, {
@@ -63,7 +65,7 @@ function CreatorProfile({ userId: propUserId,  isOwner = true }){
     return (
         <>
             <div className='profile-header'>
-                <img src={ cover ? `http://localhost:3000/uploads/${cover}` : vibrantChaos }
+                <img src={ cover ? `${BACKEND_URL}/uploads/${cover}` : vibrantChaos }
                     alt='image-cover'
                     className="image-cover" />
 
@@ -78,7 +80,7 @@ function CreatorProfile({ userId: propUserId,  isOwner = true }){
                 )}
 
                 <div className='bio-name'>
-                    <img src={ avatar ? `http://localhost:3000/uploads/${avatar}` : vibrantChaos }
+                    <img src={ avatar ? `${BACKEND_URL}/uploads/${avatar}` : vibrantChaos }
                         alt=''
                         className="user-profile-picture" />
 

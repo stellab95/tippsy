@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../config.js'
+
 import registerPicture from '../assets/img/artistic-girl.jpeg'
 
 import '../styles/Register.css'
@@ -34,7 +36,7 @@ function Register(){
         setError('')
 
         try {
-            const response = await fetch('http://localhost:3000/register', {
+            const response = await fetch(`${BACKEND_URL}/register`, {
                method: 'POST',
                headers: { 'Content-Type': 'application/json'},
                body: JSON.stringify({ 

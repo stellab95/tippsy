@@ -1,4 +1,6 @@
 import { useEffect , useState} from 'react'
+import { BACKEND_URL } from '../config.js'
+
 import Card from './Card'
 
 function CardList({ userId, isOwner = true }) {
@@ -20,7 +22,7 @@ function CardList({ userId, isOwner = true }) {
             }
 
             try {
-                const response = await fetch(`http://localhost:3000/users/${userId}/posts`, {
+                const response = await fetch(`${BACKEND_URL}/users/${userId}/posts`, {
                     headers: token ? { 'Authorization': `Bearer ${token}` } : {}
                 });
                 

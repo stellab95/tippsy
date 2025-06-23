@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { BACKEND_URL } from '../../config.js'
 
 import '../../styles/HomePage.css'
 
@@ -30,7 +31,7 @@ function HomePage(){
 
         setUserId(user.id)
 
-        fetch(`http://localhost:3000/users/${user.id}`, {
+        fetch(`${BACKEND_URL}/users/${user.id}`, {
                method: 'GET',
                headers: {
                     'Authorization': `Bearer ${token}`
@@ -49,7 +50,7 @@ function HomePage(){
 }, [])
 
 useEffect(() => {
-        fetch('http://localhost:3000/users')
+        fetch(`${BACKEND_URL}/users`)
         .then(res => res.json())
         .then(data => {
             setUsers(data)
@@ -103,7 +104,7 @@ useEffect(() => {
                 {users.map((user) => (
                     <div className="slide" key={user.id}>
                         <Link to={`/users/${user.id}`}>
-                        <img className="slide-item" src={`http://localhost:3000/uploads/${user.avatar}`} alt={user.username} />
+                        <img className="slide-item" src={`${BACKEND_URL}/uploads/${user.avatar}`} alt={user.username} />
                         <p className="caption">{user.username}</p>
                         </Link>
                     </div>
@@ -113,7 +114,7 @@ useEffect(() => {
                 {users.map((user) => (
                     <div className="slide" key={user.id}>
                         <Link to={`/users/${user.id}`}>
-                        <img className="slide-item" src={`http://localhost:3000/uploads/${user.avatar}`} alt={user.username} />
+                        <img className="slide-item" src={`${BACKEND_URL}/uploads/${user.avatar}`} alt={user.username} />
                         <p className="caption">{user.username}</p>
                         </Link>
                     </div>

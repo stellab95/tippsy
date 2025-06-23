@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../config.js'
+
 
 import UserIcon from '../assets/icons/user-icon.svg'
 import ImageCover from '../assets/img/pexels-heftiba-1194420.jpg'
@@ -29,7 +31,7 @@ function ProfileEdit() {
         const fetchProfile = async () => {
             try {
                 console.log("TOKEN:", token)
-                const response = await fetch(`http://localhost:3000/users/${userId}`, {
+                const response = await fetch(`${BACKEND_URL}/users/${userId}`, {
                     
                     method: 'GET',
                     headers: {
@@ -82,7 +84,7 @@ function ProfileEdit() {
     
         try {
             console.log("Appel API avec token:", token)
-            const response = await fetch(`http://localhost:3000/users/${userId}`, {
+            const response = await fetch(`${BACKEND_URL}/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`

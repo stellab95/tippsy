@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import HomePage from './components/homePage/HomePage';
 import CreatorProfilePage from './components/creatorProfilePage/CreatorProfilePage';
 import CreatePostPage from './components/createPostPage/CreatePostPage';

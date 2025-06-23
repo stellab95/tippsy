@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom'
+import { BACKEND_URL } from '../config.js'
+
 import trashIcon from '../assets/icons/trash-icon.svg'
 
 import '../styles/DeletePost.css'
@@ -15,7 +17,7 @@ const token = localStorage.getItem('token')
 
 try {
     console.log('Token envoyé :', token);
-    const response = await fetch(`http://localhost:3000/posts/${id}`, {
+    const response = await fetch(`${BACKEND_URL}/posts/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

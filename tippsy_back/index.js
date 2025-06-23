@@ -14,7 +14,7 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(session({
-  secret: 'une_chaine_secrete_ici',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -29,7 +29,7 @@ app.use(
   cors(
      {
       credentials: true,
-      origin: 'http://localhost:5173',
+      origin: ['http://localhost:5173', 'https://tippsy-front.vercel.app'],
       methods: ["GET", "POST", "PUT", "DELETE"],
      }
  )); 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import { BACKEND_URL } from '../config.js'
 import heartIcon from '../assets/icons/heart-icon.svg'
 import commentIcon from '../assets/icons/comment-icon.svg'
 import editIcon from '../assets/icons/edit-icon.svg'
@@ -28,10 +29,11 @@ function Card( { post, isOwner = true } ){
                 setUserId(user.id)
                 setUsername(user.username)
     
-                fetch(`http://localhost:3000/users/${user.id}`, {
+                fetch(`${BACKEND_URL}/users/${user.id}`, {
                    headers: {
                      Authorization: `Bearer ${token}`
-                   }
+                   },
+                   credentials: 'include',
                 })
                 .then(res => res.json())
                 .then(data => {
@@ -56,10 +58,10 @@ return(
     <div className="post-card-container">
         <div className='userProfil-title-container'>
             <div className='avatar-username-container'>
-                <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `http://localhost:3000/uploads/${post.avatar}`} alt='' className="user-profil" />
+                <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `${BACKEND_URL}/uploads/${post.avatar}`} alt='' className="user-profil" />
                 <p className='username-member'>{post.username}</p>
             </div>
-            <img className="img-card-container" alt="" src={`http://localhost:3000/uploads/${post.image}`}/>
+            <img className="img-card-container" alt="" src={`${BACKEND_URL}/uploads/${post.image}`}/>
                 <div className='title-date-container'>
                     <p className='card-title'>{post.title}</p>
                     <p className='date'>{formattedDate}</p>

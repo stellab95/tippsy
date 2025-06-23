@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../config.js'
+
 import UploadImage from './UploadImage'
 
 import '../styles/PostEdit.css'
@@ -15,7 +17,7 @@ function PostEdit(){
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/posts/${id}`)
+                const response = await fetch(`${BACKEND_URL}/posts/${id}`)
                 
                 if (!response.ok) {
                     throw new Error('Erreur serveur')
@@ -49,7 +51,7 @@ const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
-        const response = await fetch(`http://localhost:3000/posts/${id}`, {
+        const response = await fetch(`${BACKEND_URL}/posts/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +82,6 @@ const handleSubmit = async (e) => {
         <div className="form-wrapper">
             <form className="post-edit-container" onSubmit={handleSubmit}>
                 <UploadImage setImage={setImage} initialImage={image} />
-                {/* {image && (<img className="preview" src={`http://localhost:3000/uploads/${image}`} alt="Aperçu" />)} */}
                 <input className="title" type="text" placeholder="Titre" value={title || ''} onChange={(e) => setTitle(e.target.value)} />
                 <input className="content" type="text" placeholder="Commencez à écrire..." value={content || ''} onChange={(e) => setContent(e.target.value)} />
                 <div className="return-edit-buttons">

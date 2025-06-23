@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { BACKEND_URL } from '../config.js'
+
 import imageIcon from '../assets/icons/image-icon.svg'
 import cameraIcon from '../assets/icons/camera-icon.svg'
 import microphoneIcon from '../assets/icons/microphone-icon.svg'
@@ -8,11 +10,11 @@ import '../styles/UploadImage.css'
 
 
 function UploadImage({ setImage, initialImage }) {
-    const [preview, setPreview] = useState(initialImage ? `http://localhost:3000/uploads/${initialImage}` : null)
+    const [preview, setPreview] = useState(initialImage ? `${BACKEND_URL}/uploads/${initialImage}` : null)
 
 useEffect(() => {
     if (initialImage) {
-        setPreview(`http://localhost:3000/uploads/${initialImage}`)
+        setPreview(`${BACKEND_URL}/uploads/${initialImage}`)
     }
 }, [initialImage])
 
@@ -33,7 +35,7 @@ useEffect(() => {
         formData.append('image', file)
 
         try {
-            const uploadResponse = await fetch('http://localhost:3000/upload', {
+            const uploadResponse = await fetch(`${BACKEND_URL}/upload`, {
                 method: 'POST',
                 body: formData
             })

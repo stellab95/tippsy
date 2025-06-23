@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect , useState} from 'react'
+import { BACKEND_URL } from '../config.js'
+
 import UploadImage from './UploadImage'
 
 import '../styles/CreatePost.css'
@@ -26,7 +28,7 @@ function CreatePost(){
         try {
             console.log("Image envoyée :", image)
 
-            const response = await fetch('http://localhost:3000/posts', {
+            const response = await fetch(`${BACKEND_URL}/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

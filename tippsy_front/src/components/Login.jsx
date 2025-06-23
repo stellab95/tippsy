@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { data, redirect, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../config.js'
+
 import loginPicture from '../assets/img/creative-artist.jpeg'
 
 import '../styles/Login.css'
@@ -30,7 +32,7 @@ function Login(){
         }
         
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            const response = await fetch(`${BACKEND_URL}/login`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json'
