@@ -44,7 +44,8 @@ function Register(){
                 email, 
                 password,
                 roles
-            })
+            }),
+            credentials: 'include',
             })
 
             if (response.ok){

@@ -38,7 +38,8 @@ function CreatePost(){
                     title,
                     content,
                     image,
-                })
+                }),
+                credentials: 'include',
             })
 
             if (response.ok){

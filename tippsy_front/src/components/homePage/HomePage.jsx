@@ -36,6 +36,7 @@ function HomePage(){
                headers: {
                     'Authorization': `Bearer ${token}`
                },
+               credentials: 'include',
            })
            .then(res => res.json())
            .then(data => {

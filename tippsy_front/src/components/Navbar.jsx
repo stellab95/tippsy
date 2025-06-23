@@ -40,7 +40,8 @@ function Navbar(){
             fetch(`${BACKEND_URL}/users/${user.id}`, {
                 headers: {
                      Authorization: `Bearer ${token}`
-                }
+                },
+                credentials: 'include',
             })
             .then(res => res.json())
             .then(data => {

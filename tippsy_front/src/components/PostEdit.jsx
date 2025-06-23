@@ -62,7 +62,8 @@ const handleSubmit = async (e) => {
                 content,
                 image,
                 user_id: userId
-            })
+            }),
+            credentials: 'include',
         })
 
         const data = await response.json()

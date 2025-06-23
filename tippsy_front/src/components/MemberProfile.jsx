@@ -25,7 +25,8 @@ function MemberProfile(){
             const response = await fetch(`${BACKEND_URL}/posts`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
-                }
+                },
+                credentials: 'include',
             })
 
             if (!response.ok) {
