@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BACKEND_URL } from '../config.js'
+import { TbLayoutSidebarLeftCollapse , TbLayoutSidebarRightCollapse } from "react-icons/tb";
 
 import bellIcon from '../assets/icons/bell-icon.svg'
 import homeIcon from '../assets/icons/home-icon.svg'
@@ -8,8 +9,7 @@ import usersIcon from '../assets/icons/users-icon.svg'
 import magnifyIcon from '../assets/icons/magnify-icon.svg'
 import settingsIcon from '../assets/icons/settings-icon.svg'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
-import { TbLayoutSidebarLeftCollapse , TbLayoutSidebarRightCollapse } from "react-icons/tb";
-
+import DropdownMenu from './DropdownMenu.jsx';
 
 import '../styles/Navbar.css'
 
@@ -40,8 +40,7 @@ function Navbar(){
             fetch(`${BACKEND_URL}/users/${user.id}`, {
                 headers: {
                      Authorization: `Bearer ${token}`
-                },
-                credentials: 'include',
+                }
             })
             .then(res => res.json())
             .then(data => {
@@ -110,11 +109,12 @@ return (
 
     <div className='navbar-lower'>
       <div className='user-role nav-item'>
-        <img
+        {/* <img
           src={avatar ? `${BACKEND_URL}/uploads/${avatar}` : vibrantChaos}
           alt='avatar'
           className="user-navbar-picture"
-        />
+        /> */}
+            <DropdownMenu avatar={avatar} username={username} role={roles}/>
         {isOpen && (
           <div>
             <p className='nav-username'>{username}</p>
@@ -122,9 +122,11 @@ return (
           </div>
         )}
       </div>
-      {isOpen && (
+      {/* {isOpen && (
+        <div className='logout-border'>
         <button type='button' onClick={handleLogout}>Déconnexion</button>
-      )}
+        </div>
+      )} */}
     </div>
 
   </div>

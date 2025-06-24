@@ -50,7 +50,7 @@ li{
 }
 .logo{
     font-size: 40px;
-    margin-left: 20px;
+    margin: 30px 0 0 20px;
     text-transform: uppercase;
     font-family: "Cherry Bomb One", system-ui;
 }
@@ -179,3 +179,4 @@ align-items: center;
 .nav-item:hover .tooltip {
   opacity: 1;
 }
+
