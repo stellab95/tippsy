@@ -53,6 +53,23 @@ router.get('/users/me', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/users/featured', async (req, res) => {
+    try {
+        const allowedIds = [39, 56, 57, 58];
+        const query = 'SELECT * FROM users WHERE id = ANY($1::int[])';
+        const values = [`{${allowedIds.join(',')}}`];
+
+        const result = await pool.query(query, values);
+
+        console.log("Utilisateurs filtrés :", result.rows);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error("Erreur dans /users/featured :", error.message);
+        res.status(500).json({ error: "Erreur serveur" });
+    }
+});
+
+
 router.get('/users/:id', async (req, res) => {
   try {
     const { id } = req.params
@@ -93,6 +110,7 @@ router.get('/users/:id/posts', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
 
 router.post('/users', async (req, res) => {
   try {
