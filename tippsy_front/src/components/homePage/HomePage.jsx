@@ -88,12 +88,12 @@ console.log("Liste des users à afficher dans le slider:", users);
                 <Link to="/" className='home-logo'>tippsy</Link>
                 
                 <ul className={`home-navbar-links ${isMenuOpen ? 'open' : ''}`}>
-                     <li><Link to="/" style={{marginRight: 15}}>Accueil</Link></li>
+                     {/* <li><Link to="/" style={{marginRight: 15}}>Accueil</Link></li>
                     <li><Link to="/" style={{marginRight: 15}}>Créateurs</Link></li>
-                    <li><Link to="/">Fonctionnalités</Link></li>
+                    <li><Link to="/">Fonctionnalités</Link></li> */}
 
                     <li>
-                        <input type='search' className='search-creator-input' placeholder='Chercher un créateur...'></input>
+                        {/* <input type='search' className='search-creator-input' placeholder='Chercher un créateur...'></input> */}
                         <button className='home-connexion' onClick={() => navigate('/register')}>S'identifier</button>
                     </li>
                 </ul>

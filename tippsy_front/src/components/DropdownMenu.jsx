@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { BACKEND_URL } from '../config.js'
 
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
@@ -11,6 +11,7 @@ function DropdownMenu({ avatar, username, role }){
     const navigate = useNavigate()
 
     const [open, setOpen] = useState(false)
+    const [selectedRole, setSelectedRole] = useState(role ? role[0] : null)
     const menuRef = useRef(null)
 
     const toggleMenu = () => setOpen(!open)
@@ -42,25 +43,30 @@ useEffect(() => {
 
             {open && (
                 <div className="dropdown-menu">
-                    <div className="dropdown-item">
-                        <img className="user-dropdown-picture" src={avatar ? `${BACKEND_URL}/uploads/${avatar}` : vibrantChaos} alt="avatar" />
-                        <div>
-                        <p className='dropdown-username'>{username}</p>
-                        <p className="dropdown-user-role">{role}</p>
-                        </div>
-                    </div>
                     <div className="dropdown-item selected">
-                    <img
+                    <div>
+                        
+                    {role && role.map((r, index) => (
+                    <div
+                        key={index}
+                        className={`dropdown-item ${selectedRole === r ? "selected" : ""}`}
+                        onClick={() => setSelectedRole(r)}
+                    >
+                        <img
                         className="user-dropdown-picture"
                         src={avatar ? `${BACKEND_URL}/uploads/${avatar}` : vibrantChaos}
                         alt="avatar"
-                    />
-                    <div>
+                        />
+                        <div>
                         <p className="dropdown-username">{username}</p>
                         <div className="role-and-check">
-                        <p className="dropdown-user-role">{role}</p>
-                        <span className="checkmark">✔️</span>
+                            <p className="dropdown-user-role">{r}</p>
+                            {selectedRole === r && <span className="checkmark">✔️</span>}
                         </div>
+                        </div>
+                    </div>
+                    ))}
+
                     </div>
                     </div>
                     <button
