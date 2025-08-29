@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { BACKEND_URL } from '../../config.js'
 
 import '../../styles/HomePage.css'
+import Carousel from '../Carousel'
 
 import joyfulArtist from '../../assets/img/joyful-artist.jpeg'
 import colorfulGallery from '../../assets/img/colorful-gallery.jpeg'
@@ -112,29 +113,7 @@ console.log("Liste des users à afficher dans le slider:", users);
             </div>
         </div>
         
-        <div className="slider">
-            <div className="slide-track">
-                {users.map((user) => (
-                    <div className="slide" key={user.id}>
-                        <Link to={`/users/${user.id}`}>
-                        <img className="slide-item" src={`${BACKEND_URL}/uploads/${user.avatar}`} alt={user.username} />
-                        <p className="caption">{user.username}</p>
-                        </Link>
-                    </div>
-                ))}
-
-        {/* boucle infinie */}
-                {users.map((user) => (
-                    <div className="slide" key={user.id}>
-                        <Link to={`/users/${user.id}`}>
-                        <img className="slide-item" src={`${BACKEND_URL}/uploads/${user.avatar}`} alt={user.username} />
-                        <p className="caption">{user.username}</p>
-                        </Link>
-                    </div>
-                ))}
-             </div>
-        </div>
-
+        <Carousel users={users} BACKEND_URL={BACKEND_URL}/>
 
         <div>
         </div>
