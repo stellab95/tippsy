@@ -7,7 +7,7 @@ import '../../styles/CreatorProfilePage.css'
 function CreatorProfilePage(){
     return (
         <>
-            <div className="navbar">
+            <div className="navbar-creator-profile">
                 <Navbar />
             </div>
             

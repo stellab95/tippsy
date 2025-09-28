@@ -160,7 +160,7 @@ align-items: center;
 /* Tooltip */
 .tooltip {
   position: absolute;
-  left: 70px; /* Ajuste en fonction de la largeur fermée de ta nav */
+  left: 70px; 
   top: 50%;
   transform: translateY(-50%);
   background-color: #444;

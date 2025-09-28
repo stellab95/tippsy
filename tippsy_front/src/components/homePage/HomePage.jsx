@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { BACKEND_URL } from '../../config.js'
 
-import '../../styles/HomePage.css'
+// import '../../styles/HomePage.css'
 import Carousel from '../Carousel'
 
 import joyfulArtist from '../../assets/img/joyful-artist.jpeg'
@@ -11,7 +11,6 @@ import colorfulGallery from '../../assets/img/colorful-gallery.jpeg'
 import facebook from '../../assets/icons/facebook.png'
 import instagram from '../../assets/icons/instagram.png'
 import pinterest from '../../assets/icons/pinterest.png'
-import loupe from '../../assets/icons/loupe.png'
 
 function HomePage(){
     const navigate = useNavigate()
@@ -67,12 +66,12 @@ useEffect(() => {
                 console.log("Utilisateurs filtrés depuis backend =", data);
             } else {
                 console.error("Réponse inattendue :", data)
-                setUsers([]) // évite le crash .map
+                setUsers([]) 
             }
         })
         .catch(err => {
             console.error('Erreur lors du chargement des utilisateurs :', err)
-            setUsers([]) // évite le crash .map
+            setUsers([]) 
         })
 }, [])
 
@@ -81,71 +80,66 @@ console.log("Liste des users à afficher dans le slider:", users);
 
     return (
         <>
-        <div className='home-navbar-container'>
-            <button className="burger-menu" onClick={handleToggleMenu}>
-            ☰
-            </button>
-            <nav className="home-navbar-content wrapper">
-                <Link to="/" className='home-logo'>tippsy</Link>
-                
-                <ul className={`home-navbar-links ${isMenuOpen ? 'open' : ''}`}>
-                     {/* <li><Link to="/" style={{marginRight: 15}}>Accueil</Link></li>
-                    <li><Link to="/" style={{marginRight: 15}}>Créateurs</Link></li>
-                    <li><Link to="/">Fonctionnalités</Link></li> */}
-
-                    <li>
-                        {/* <input type='search' className='search-creator-input' placeholder='Chercher un créateur...'></input> */}
-                        <button className='home-connexion' onClick={() => navigate('/register')}>S'identifier</button>
-                    </li>
-                </ul>
-            </nav>
+        {/* NAVBAR */}
+        <div className="navbar bg-base-100 shadow-sm home-navbar-container">
+            <div className="flex-1">
+                <a className="btn btn-ghost text-xl home-logo">Tippsy</a>
+            </div>
+            <div className="flex gap-2">
+                {/* <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" /> */}
+                <div className="navbar-end">
+                    <a className="btn home-connexion" onClick={() => navigate('/register')}>S'identifier</a>
+                </div>    
+            </div>
         </div>
 
-        <div className='home-img-container'>
-            <img src={joyfulArtist} alt='joyful-artist' className="joyful-artist" />
-            <p className='home-hero-slogan'>Transformez vos passions en entreprises !</p>
-        </div>
-        <div className='wrapper'>
-            <p className='slider-title'>réussissez grâce à votre art</p>
-            <div className='text-button-container'>
-                <p className='slider-text'>Tippsy est le meilleur endroit pour créer une communauté avec vos plus grands fans, partager des oeuvres exclusives et transformer votre passion en entreprise créative durable.</p>
-                <button className='start-button'>Commencez à créer avec Tippsy</button>
+        {/* HERO */}
+        <div className="hero min-h-screen" style={{backgroundImage: `url(${joyfulArtist})`}}>
+            <div className="hero-overlay"></div>
+            <div className="hero-content text-neutral-content text-center">
+                <div className="max-w-md">
+                <h1 className="mb-5 text-5xl font-bold">Transformez vos passions en entreprises !</h1>
+                <p className="mb-5">
+                    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+                    quasi. In deleniti eaque aut repudiandae et a id nisi.
+                </p>
+                <button className="btn btn-primary" onClick={() => navigate('/register')}>Commencez à créer avec Tippsy</button>
+                </div>
+            </div>
+        </div> 
+
+        {/* MIDDLE PART */}
+        <div className="hero bg-base-200 min-h-screen">
+            <div className="hero-content flex-col lg:flex-row">
+                <img src={colorfulGallery} className="w-full max-w-full lg:max-w-xl rounded-lg shadow-2xl object-cover object-center"/>
+                <div>
+                    <h1 className="text-5xl font-bold">Réussissez grâce à votre art!</h1>
+                    <p className="py-6">
+                        Tippsy est le meilleur endroit pour créer une communauté avec vos plus grands fans, 
+                        partager des oeuvres exclusives et transformer votre passion en entreprise créative durable.
+                    </p>
+                    <button className="btn btn-primary" onClick={() => navigate('/register')}>Configurez votre boutique</button>
+                </div>
             </div>
         </div>
         
-        <Carousel users={users} BACKEND_URL={BACKEND_URL}/>
-
-        <div>
+        <div className='mt-4'>
+            <h4 className="text-3xl font-bold ml-4">Créateurs qui pourraient vous plaire</h4>
+            <Carousel users={users} BACKEND_URL={BACKEND_URL}/>
         </div>
-
-        <section className='earn-money-container'>
-            <img src={colorfulGallery} alt='colorful-gallery' className="colorful-gallery" />
-            <div className='earn-title'>
-            <p className='earn-money'>Une autre façon de gagner de l'argent</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Aenean tincidunt metus in leo tristique, ac fringilla augue finibus.
-                Aliquam volutpat lorem at iaculis convallis. Curabitur mattis feugiat turpis, molestie volutpat lacus volutpat vitae.
-                Proin sit amet rhoncus velit, ut viverra magna. Curabitur condimentum sodales nisi, at commodo leo dapibus in.
-                Cras ut congue eros. Curabitur sit amet turpis eu dui eleifend lobortis. Pellentesque id ex efficitur, cursus augue a, lacinia sem.
-                Integer accumsan pretium venenatis. Cras venenatis odio sed felis sollicitudin, at suscipit diam scelerisque. Integer in pulvinar nisi.
-                In sed laoreet diam. Sed auctor, dui eget condimentum vehicula, ante ante pulvinar mi, sed tristique augue est sit amet sapien.</p>
-            <button className='shop-button'>Configurez votre boutique</button>
-
-        </div>
-        </section>
-
-        <footer>
-        <div className="container-footer">
-            <div className="footer-content wrapper">
-                <p className="logo-footer">T.</p>
-
-                <ul className="social-container">
-                    <li><img src={facebook} alt='facebook' className="facebook" /></li>
-                    <li><img src={instagram} alt='instagram' className="instagram" /></li>
-                    <li><img src={pinterest} alt='pinterest' className="pinterest" /></li>
-                </ul>
-            </div>
-        </div>
+        {/* FOOTER */}
+        <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
+            <aside className="grid-flow-col items-center">
+                <p className="logo-footer fill-current">T.</p>
+            </aside>
+            <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+                <a>
+                    <img src={facebook} alt='facebook' className="facebook" />    </a>
+                <a>
+                    <img src={instagram} alt='instagram' className="instagram" />    </a>
+                <a>
+                    <img src={pinterest} alt='pinterest' className="pinterest" />    </a>
+            </nav>
         </footer>
     </>
     )
