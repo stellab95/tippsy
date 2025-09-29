@@ -12,9 +12,11 @@ import MemberProfile from './components/MemberProfile';
 import Unauthorized from './components/Unauthorized';
 import RequireAuth from './components/RequireAuth';
 import UserProfilePage from './components/userProfilePage/UserProfilePage';
+import Navbar from './components/Navbar';
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
+  { path: '/navbar', element: <Navbar /> },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
   { path: '/users/:id', element: <UserProfilePage /> },

@@ -1,6 +1,6 @@
-import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { BACKEND_URL } from '../../config.js'
 
 // import '../../styles/HomePage.css'
@@ -83,7 +83,7 @@ console.log("Liste des users à afficher dans le slider:", users);
         {/* NAVBAR */}
         <div className="navbar bg-base-100 shadow-sm home-navbar-container">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl home-logo">Tippsy</a>
+                <Link to="/"><a className="text-xl home-logo">Tippsy</a></Link>
             </div>
             <div className="flex gap-2">
                 {/* <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" /> */}

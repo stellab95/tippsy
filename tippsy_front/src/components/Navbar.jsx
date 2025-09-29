@@ -11,7 +11,7 @@ import settingsIcon from '../assets/icons/settings-icon.svg'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 import DropdownMenu from './DropdownMenu.jsx';
 
-import '../styles/Navbar.css'
+// import '../styles/Navbar.css'
 
 function Navbar(){
     const navigate = useNavigate()
@@ -61,75 +61,44 @@ function Navbar(){
     
 
 return (
-  <div className={`navbar-container ${isOpen ? 'open' : 'closed'}`}>
-    
-    {/* Partie du haut */}
-    <div className='navbar-upper'>
-      <div className='navbar-top'>
-        {isOpen && (
-        <Link to='/' className='logo'>Tippsy</Link>
-        )}
-        <button className='toggle-btn' onClick={toggleNavBar}>
-        {isOpen ? <TbLayoutSidebarLeftCollapse /> : <TbLayoutSidebarRightCollapse />}
-        </button>
-      </div>
+ <>
 
-      <div className='main-container'>
-        <div className='navbar-content'>
-          <ul className='links-container'>
-            <li className="nav-item">
-            <Link to="/"><img src={homeIcon} alt="home" className="icon" />
-                {isOpen && <span className="link-text">Accueil</span>}</Link>
-            {!isOpen && <span className="tooltip">Accueil</span>}
-            </li>
-            <li className="nav-item">
-              <Link to="/"><img src={magnifyIcon} alt='magnify-icon' className="magnify-icon" />
-                {isOpen && <span>Parcourir</span>}</Link>
-             {!isOpen && <span className="tooltip">Parcourir</span>}
-            </li>
-            <li className="nav-item">
-              <Link to="/"><img src={bellIcon} alt='bell-icon' className="bell-icon" />
-                {isOpen && <span>Notifications</span>}</Link>
-            {!isOpen && <span className="tooltip">Notifications</span>}
-            </li>
-            <li className="nav-item">
-              <Link to="/"><img src={usersIcon} alt='users-icon' className="users-icon" />
-              {isOpen && <span>Abonnements</span>}</Link>
-            {!isOpen && <span className="tooltip">Abonnements</span>}
-            </li>
-            <li className="nav-item">
-              <Link to="/"><img src={settingsIcon} alt='settings-icon' className="settings-icon" />
-                {isOpen && <span>Paramètres</span>}</Link>
-            {!isOpen && <span className="tooltip">Paramètres</span>}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+ <ul className="menu bg-neutral rounded-box min-h-screen flex flex-col items-center justify-between py-6">
+  <div className="flex flex-col items-center space-y-8">
+    <Link to="/"><p className="logo-footer fill-current">T.</p></Link>
 
-    <div className='navbar-lower'>
-      <div className='user-role nav-item'>
-        {/* <img
-          src={avatar ? `${BACKEND_URL}/uploads/${avatar}` : vibrantChaos}
-          alt='avatar'
-          className="user-navbar-picture"
-        /> */}
-            <DropdownMenu avatar={avatar} username={username} role={roles}/>
-        {isOpen && (
-          <div>
-            <p className='nav-username'>{username}</p>
-            <p className='role'>{roles}</p>
-          </div>
-        )}
-      </div>
-      {/* {isOpen && (
-        <div className='logout-border'>
-        <button type='button' onClick={handleLogout}>Déconnexion</button>
-        </div>
-      )} */}
-    </div>
+    <Link to="/"><a className="tooltip tooltip-primary tooltip-right" data-tip="Accueil">
+      <img src={homeIcon} alt='accueil' className="h-4 w-4"/>
+    </a></Link>
 
+    <a className="tooltip tooltip-primary tooltip-right" data-tip="Parcourir">
+      <img src={magnifyIcon} alt='parcourir' className="h-4 w-4"/>
+    </a>
+
+    <a className="tooltip tooltip-primary tooltip-right" data-tip="Notifications">
+      <img src={bellIcon} alt='notifications' className="h-4 w-4"/>
+    </a>
+
+    <a className="tooltip tooltip-primary tooltip-right" data-tip="Abonnements">
+      <img src={usersIcon} alt='abonnement' className="h-4 w-4"/>
+    </a>
+
+    <a className="tooltip tooltip-primary tooltip-right" data-tip="Paramètres">
+      <img src={settingsIcon} alt='paramètres' className="h-4 w-4"/>
+    </a>
   </div>
+
+  {/* DROPDOWN */}
+ <div className="p-4">
+        <DropdownMenu
+          avatar={avatar}
+          username={username}
+          role={roles}
+          onLogout={handleLogout}
+        />
+      </div></ul>
+
+ </>
 );
 }
 
