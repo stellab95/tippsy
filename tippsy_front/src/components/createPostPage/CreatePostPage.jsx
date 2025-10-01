@@ -4,7 +4,7 @@ import CreatePost from "../CreatePost"
 function CreatePostPage(){
     return (
         <>
-        <div className="navbar">
+        <div className="navbar-creator-profile">
             <Navbar />
         </div>
             <div className="main-post-container">
