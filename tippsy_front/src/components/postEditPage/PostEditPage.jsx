@@ -4,7 +4,7 @@ import PostEdit from "../PostEdit"
 function PostEditPage(){
     return (
         <>
-        <div className="navbar">
+        <div className="navbar-creator-profile">
             <Navbar />
         </div>
 

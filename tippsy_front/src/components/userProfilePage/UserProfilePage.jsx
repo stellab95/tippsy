@@ -12,7 +12,7 @@ function UserProfilePage(){
 
     return (
         <>
-            <div className='home-navbar-container '>
+            <div className='home-navbar-container'>
                 <HomeNavBar isOwner={userIsLoggedIn} />
             </div>
             <div className="main-container">

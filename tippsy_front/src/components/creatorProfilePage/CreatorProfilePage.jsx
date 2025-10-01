@@ -2,7 +2,7 @@ import Navbar from "../Navbar";
 import CardList from "../CardList";
 import CreatorProfile from "../CreatorProfile";
 
-import '../../styles/CreatorProfilePage.css'
+ import '../../styles/CreatorProfilePage.css'
 
 function CreatorProfilePage(){
     return (

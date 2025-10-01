@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BACKEND_URL } from '../config.js'
-import { TbLayoutSidebarLeftCollapse , TbLayoutSidebarRightCollapse } from "react-icons/tb";
 
 import bellIcon from '../assets/icons/bell-icon.svg'
 import homeIcon from '../assets/icons/home-icon.svg'
@@ -11,7 +10,7 @@ import settingsIcon from '../assets/icons/settings-icon.svg'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
 import DropdownMenu from './DropdownMenu.jsx';
 
-// import '../styles/Navbar.css'
+ import '../styles/Navbar.css'
 
 function Navbar(){
     const navigate = useNavigate()

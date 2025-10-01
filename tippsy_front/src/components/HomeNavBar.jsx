@@ -35,7 +35,7 @@ function HomeNavBar({ isOwner = false }){
 
         if (isOwner) {
             return (
-            <div className="navbar">
+            <div className="navbar-creator-profile">
                 <Navbar />
             </div>
             )
