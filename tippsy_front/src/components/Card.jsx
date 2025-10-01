@@ -56,7 +56,7 @@ function Card( { post, isOwner = true, onDeleteSuccess } ){
 console.log(post.image)
 return(
     <>
-    <div className="post-card-container">
+    {/* <div className="post-card-container">
         <div className='userProfil-title-container'>
             <div className='avatar-username-container'>
                 <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `${BACKEND_URL}/uploads/${post.avatar}`} alt='' className="user-profil" />
@@ -96,7 +96,7 @@ return(
                 </div>
                 )}
             </div>
-         </div>   
+         </div>    */}
 
 
 
