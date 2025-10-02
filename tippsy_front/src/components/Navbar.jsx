@@ -13,23 +13,18 @@ import DropdownMenu from './DropdownMenu.jsx';
  import '../styles/Navbar.css'
 
 function Navbar(){
-    const navigate = useNavigate()
-
-    const [isOpen, setIsOpen] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [username, setUsername] = useState('')
     const [userId, setUserId] = useState('')
     const [avatar, setAvatar] = useState('')
     const [roles, setRoles] = useState([])
-
-    const toggleNavBar = () => {
-        setIsOpen(!isOpen)
-    }
 
     useEffect(() => {
         const token = localStorage.getItem('token')
         const userFromStorage = localStorage.getItem('user')
 
         if (token && userFromStorage) {
+            setIsAuthenticated(true)
             const user = JSON.parse(userFromStorage)
 
             setUserId(user.id)
@@ -49,6 +44,8 @@ function Navbar(){
                 }
             })
             .catch(err => console.error(err))
+        } else {
+          setIsAuthenticated(false)
         }
     }, [])
 
@@ -57,7 +54,10 @@ function Navbar(){
             localStorage.removeItem('user')
             navigate('/login')
         }
-    
+ 
+if (!isAuthenticated) {
+  return null
+}
 
 return (
  <>

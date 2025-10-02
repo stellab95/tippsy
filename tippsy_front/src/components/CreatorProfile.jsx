@@ -71,11 +71,19 @@ function CreatorProfile({ userId: propUserId,  isOwner = true }){
 
                 {isOwner && (
                     <div className='profile-buttons'>
-                        <button className='left-button' type="button" onClick={() => navigate('/createpost')}>
-                        <img src={createIcon} className="create-icon" />Créer</button>
+                        <button className="btn btn-neutral" onClick={() => navigate('/createpost')}>
+                            <img src={createIcon} className="create-icon" />
+                            Créer un post
+                        </button>
+                        <button className="btn btn-neutral" onClick={() => navigate(`/profileedit/${userId}`)}>
+                            <img src={createIcon} className="create-icon" />
+                            Modifier le profil
+                        </button>
+                        {/* <button className='left-button' type="button" onClick={() => navigate('/createpost')}>
+                        <img src={createIcon} className="create-icon" />Créer</button> */}
                         
-                        <button className='right-button' type="button" onClick={() => navigate(`/profileedit/${userId}`)}>
-                        <img src={createIcon} className="create-icon" />Modifier la page</button>
+                        {/* <button className='right-button' type="button" onClick={() => navigate(`/profileedit/${userId}`)}>
+                        <img src={createIcon} className="create-icon" />Modifier la page</button> */}
                     </div>
                 )}
 

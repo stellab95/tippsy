@@ -7,12 +7,7 @@ import '../styles/MemberProfile.css'
 import Navbar from './Navbar'
 
 function MemberProfile(){
-    const navigate = useNavigate()
-
     const [posts, setPosts] = useState([])
-    const [userId, setUserId] = useState('')
-    const [username, setUsername] = useState('')
-    const [avatar, setAvatar] = useState('')
 
     useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +40,7 @@ function MemberProfile(){
 
     return (
         <>
-        <div className="navbar">
+        <div className="navbar-creator-profile">
             <Navbar />
         </div>
         <div className="profile-cardlist-container">
