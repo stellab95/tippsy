@@ -88,7 +88,7 @@ console.log("Liste des users à afficher dans le slider:", users);
             <div className="flex gap-2">
                 {/* <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" /> */}
                 <div className="navbar-end">
-                    <a className="btn home-connexion" onClick={() => navigate('/register')}>S'identifier</a>
+                    <a className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg home-connexion" onClick={() => navigate('/register')}>S'identifier</a>
                 </div>    
             </div>
         </div>

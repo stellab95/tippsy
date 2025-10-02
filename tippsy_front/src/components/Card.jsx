@@ -55,7 +55,8 @@ function Card( { post, isOwner = true, onDeleteSuccess } ){
 
 console.log(post.image)
 return(
-    <div className="post-card-container">
+    <>
+    {/* <div className="post-card-container">
         <div className='userProfil-title-container'>
             <div className='avatar-username-container'>
                 <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `${BACKEND_URL}/uploads/${post.avatar}`} alt='' className="user-profil" />
@@ -95,7 +96,59 @@ return(
                 </div>
                 )}
             </div>
+         </div>    */}
+
+
+
+
+
+        <div className="card bg-white w-xl shadow-sm p-4 mb-6">
+            <div className='avatar-username-container'>
+                <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `${BACKEND_URL}/uploads/${post.avatar}`} alt='' className="user-profil" />
+                <p className='username-member'>{post.username}</p>
+            </div>
+
+            {/* PHOTOS */}
+            <figure>
+            <img className="img-card-container" alt="" src={`${BACKEND_URL}/uploads/${post.image}`}/>
+            </figure>
+
+            <div className="card pt-4">
+                <p className='card-title'>{post.title}</p>
+                <p className='date pb-6'>{formattedDate}</p>
+                <p className="text-sm pb-8">{post.content}</p>
+
+            {/* LIKES COMMENTAIRES */}
+            <div className='interactivity pt-4'>
+                <div className='card-actions justify-end'>
+                <div className='heart-container'>
+                    <img src={heartIcon} alt='heart-icon' className="heart-icon" />
+                    <p className='nb-likes'>42</p>
+                </div>
+                <div className='comment-container'>
+                    <img src={commentIcon} alt='comment-icon' className="comment-icon" />
+                    <p className='nb-comments'>4</p>
+                </div>
+                </div>
+
+            {/* AFFICHAGE CORBEILLE ET EDIT */}
+                {isOwner && (
+                <div className='delete-edit-container'>
+                    <div className='trash-card'>
+                        <DeletePost id={post.id} onDeleteSuccess={onDeleteSuccess}/>
+                    </div>
+                    <div className='comment-container'>
+                        <Link to={`/posts/${post.id}/edit`}>
+                            <img src={editIcon} alt="edit-icon" className="edit-icon" />
+                        </Link>
+                    </div>
+                </div>
+                )}
+            </div>
+            </div>
         </div>
+        
+        </>
         )
     }
 
