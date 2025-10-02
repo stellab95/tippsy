@@ -102,7 +102,7 @@ return(
 
 
 
-        <div className="card bg-white w-xl shadow-sm p-4">
+        <div className="card bg-white w-xl shadow-sm p-4 mb-6">
             <div className='avatar-username-container'>
                 <img src={avatar === null || avatar === '/vibrant-chaos.jpg' ? vibrantChaos : `${BACKEND_URL}/uploads/${post.avatar}`} alt='' className="user-profil" />
                 <p className='username-member'>{post.username}</p>
