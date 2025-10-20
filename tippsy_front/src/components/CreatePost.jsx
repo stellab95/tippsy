@@ -1,76 +1,125 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect , useState} from 'react'
+import { useState } from 'react'
 import { BACKEND_URL } from '../config.js'
-
 import UploadImage from './UploadImage'
 
-import '../styles/CreatePost.css'
+function CreatePost() {
+  const navigate = useNavigate()
 
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [image, setImage] = useState('')
 
-function CreatePost(){
-    const navigate = useNavigate()
-    
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [image, setImage] = useState('')
+  const token = localStorage.getItem('token')
+  let userId = null
 
-    const token = localStorage.getItem('token')    
-    let userId = null
+  if (token) {
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    userId = payload.id
+  }
 
-    if (token) {
-        const payload = JSON.parse(atob(token.split('.')[1]))
-        userId = payload.id
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      console.log('Image envoyée :', image)
+
+      const response = await fetch(`${BACKEND_URL}/posts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title,
+          content,
+          image,
+        }),
+        credentials: 'include',
+      })
+
+      if (response.ok) {
+        console.log('Post créé avec succès !')
+        navigate('/creatorprofile')
+      }
+
+      const data = await response.json()
+      console.log('Post ajouté', data)
+
+      setTitle('')
+      setContent('')
+      setImage('')
+    } catch (error) {
+      console.error('Erreur lors de la création du post :', error)
     }
+  }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+  return (
+    <div className="flex flex-col items-center p-6 w-full max-w-3xl mx-auto space-y-6">
+      <h1 className="text-3xl font-bold text-center">Créer un post</h1>
 
-        try {
-            console.log("Image envoyée :", image)
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col w-full gap-6"
+        encType="multipart/form-data"
+      >
+        {/* Upload Image */}
+        <div className="flex flex-col items-center gap-2 w-full">
+          <label className="text-lg font-semibold">Image du post</label>
+          <UploadImage setImage={setImage} />
 
-            const response = await fetch(`${BACKEND_URL}/posts`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    title,
-                    content,
-                    image,
-                }),
-                credentials: 'include',
-            })
-
-            if (response.ok){
-                console.log("Post crée avec succès !");
-                navigate('/creatorprofile')
-            }
-            const data = await response.json()
-            console.log(('Post ajouté', data));
-
-            setTitle('');
-            setContent('');
-            setImage('');
-
-        }catch (error) {
-            console.error('Erreur lors de la création du post :', error)
-        }
-    }
-
-    return (
-        <div className='form-wrapper'>
-            <form className='post-container' onSubmit={handleSubmit} encType='multipart/form-data'>
-                <UploadImage setImage={setImage}/>
-                <input className='title' type="text" placeholder="Titre" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <input className='content' type="text" placeholder="Commencez à écrire..." value={content} onChange={(e) => setContent(e.target.value)} />
-                <div className='return-submit-buttons'>
-                    <button className='return-button' type="button" onClick={() => navigate('/creatorprofile')}>Retour</button>
-                    <button className='create-post-button' type="submit">Publier</button>
-                </div>
-            </form>
+          {/* Aperçu de l’image */}
+          {image && (
+            <img
+              src={typeof image === 'string' ? `${BACKEND_URL}/uploads/${image}` : URL.createObjectURL(image)}
+              alt="Aperçu du post"
+              className="w-full h-48 md:h-56 object-cover rounded-lg border border-gray-300 mt-2"
+            />
+          )}
         </div>
-    )
+
+        {/* Title */}
+        <div className="flex flex-col w-full">
+          <label className="text-lg font-semibold mb-1">Titre</label>
+          <input
+            type="text"
+            placeholder="Titre du post"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="input input-bordered w-full"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col w-full">
+          <label className="text-lg font-semibold mb-1">Contenu</label>
+          <textarea
+            placeholder="Commencez à écrire..."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="textarea textarea-bordered h-48 resize-none w-full"
+          />
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row justify-between gap-4">
+          <button
+            type="button"
+            onClick={() => navigate('/creatorprofile')}
+            className="btn btn-neutral w-full sm:w-auto"
+          >
+            Retour
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary w-full sm:w-auto"
+          >
+            Publier
+          </button>
+        </div>
+      </form>
+    </div>
+  )
 }
 
 export default CreatePost

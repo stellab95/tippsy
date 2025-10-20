@@ -7,7 +7,7 @@ function CreatePostPage(){
         <div className="navbar-creator-profile">
             <Navbar />
         </div>
-            <div className="main-post-container">
+            <div>
                 <div className="create-post-container">
                     <CreatePost />
                 </div>

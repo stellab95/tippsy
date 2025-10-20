@@ -3,6 +3,7 @@ import { BACKEND_URL } from '../config.js'
 
 import createIcon from '../assets/icons/create-icon.svg'
 import vibrantChaos from '../assets/img/vibrant-chaos.jpeg'
+import { FiPlusSquare } from "react-icons/fi";
 
 import '../styles/CreatorProfile.css'
 import { useEffect, useState } from 'react'
@@ -72,7 +73,7 @@ function CreatorProfile({ userId: propUserId,  isOwner = true }){
                 {isOwner && (
                     <div className='profile-buttons'>
                         <button className="btn btn-neutral" onClick={() => navigate('/createpost')}>
-                            <img src={createIcon} className="create-icon" />
+                            <FiPlusSquare className="create-icon"/>
                             Créer un post
                         </button>
                         <button className="btn btn-neutral" onClick={() => navigate(`/profileedit/${userId}`)}>

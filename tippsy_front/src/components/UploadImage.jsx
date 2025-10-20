@@ -64,7 +64,7 @@ useEffect(() => {
         <>
             <div className="all-buttons">
                 <div className="image-button">
-                    <button className="upload-image" type="button" onClick={handleUploadClick}><img src={imageIcon} alt='image-icon' className="image-icon" />Image</button>
+                    <button className="upload-image btn btn-outline btn-neutral" type="button" onClick={handleUploadClick}><img src={imageIcon} alt='image-icon' className="image-icon" />Parcourir</button>
                     <input
                         type="file"
                         accept="image/*"
@@ -73,7 +73,7 @@ useEffect(() => {
                         onChange={handleFileChange}
                     />
                 </div>
-                <div className="video-button">
+                {/* <div className="video-button">
                     <button className="upload-image" onKeyDown={handleKeyDown}><img src={cameraIcon} alt='camera-icon' className="camera-icon" />Vidéo</button>
                 </div>
                 <div className="microphone-icon-button">
@@ -81,11 +81,11 @@ useEffect(() => {
                 </div>
                 <div className="link-icon-button">
                     <button className="upload-image"><img src={linkIcon} alt='link-icon' className="link-icon" />Lien</button>
-                </div>
+                </div> */}
             </div>
-            <div className="preview">
+            {/* <div className="preview">
                 {preview && <img src={preview} alt="Aperçu" />}
-            </div>
+            </div> */}
         </>
     )
 }
